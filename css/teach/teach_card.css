@@ -1,0 +1,71 @@
+@charset "UTF-8" ;
+.teach-card{
+    width: 1080px;
+}
+/* test */
+/* 教程卡片标题 */
+.card-teach-header {
+    width: 100%;
+    margin: 10px;
+    background-color: #F5F5F5;
+    font-size: 16px;
+    border: 1px solid #DDDDDD;
+
+}
+.card-teach-header-item{
+    padding: 13px;
+}
+/* 教程内容卡片 */
+.card-teach-detail-main-step {
+    width: 100%;
+    border: 1px solid #DDDDDD;
+    margin: 10px;
+    line-height: 23px;
+    /* 字间距 */
+    letter-spacing: .02em;
+}
+/* 卡片标题 */
+.card-detail-card-header{
+    width: 100%;
+    background-color: #F5F5F5;
+    /* padding: 10px; */
+    color: #1a73e8;
+    font-weight: 500;
+    font-size: 15px;
+    cursor: pointer;
+}
+/* 卡片子内容 */
+.card-detail-item {
+    padding: 5px 0 5px 5px;
+    background-color: rgba(245,245,245, 1);
+}
+.card-detail-item-header{
+    font-weight: 500;
+    color: #000;
+    font-size: 16px;
+}
+
+.card-detail-card-header-item{
+    padding: 10px;
+}
+
+/* 截图 */
+img {
+    width: 1070px;
+}
+/* 链接样式 */
+a{
+    text-decoration: none;
+}
+a:link {
+    color: #000;
+}
+a:visited {
+    color: #000;
+}
+a:hover {
+    color: #2F73E8;
+}
+a:active {
+    color: #000;
+}
