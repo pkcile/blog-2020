@@ -272,10 +272,14 @@ module.exports = function (webpackEnv) {
               // Pending further investigation:
               // https://github.com/terser-js/terser/issues/120
               inline: 2,
+              drop_console: true,
+              passes: 3
+
             },
             mangle: {
               safari10: true,
             },
+            ie8: true,
             // Added for profiling in devtools
             keep_classnames: isEnvProductionProfile,
             keep_fnames: isEnvProductionProfile,
