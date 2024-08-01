@@ -23,6 +23,8 @@ a:hover {
 }
 
 body {
+  height: 100%;
+  width: 100%;
   margin: 0;
   display: flex;
   place-items: center;
@@ -35,7 +37,7 @@ h1 {
   line-height: 1.1;
 }
 
-#app {
+#root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
