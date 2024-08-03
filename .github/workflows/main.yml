@@ -4,6 +4,9 @@ on:
   #push:
   #  branches:
   #    - main  # default branch
+  push:
+    tags: 
+      - '*'
   label:
     types: [created, deleted]
     
