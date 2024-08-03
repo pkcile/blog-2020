@@ -23,6 +23,9 @@ Turborepo
 ```
 常用命令
 ```
+npm run build -w .\apps\blog-2020\
+
+
 单个启动
 yarn workspace my-app start
 
@@ -58,3 +61,5 @@ npm install rimraf -g
 
 rimraf node_modules
 ```
+
+npm install npm i webpack-dev-middleware@5.3.4  -w  apps/turf-www
