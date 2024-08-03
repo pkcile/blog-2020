@@ -1,9 +1,9 @@
 name: Pages
 
 on:
-  push:
-    branches:
-      - main  # default branch
+  #push:
+  #  branches:
+  #    - main  # default branch
   label:
     types: [created, deleted]
     
