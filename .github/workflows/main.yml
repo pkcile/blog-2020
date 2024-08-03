@@ -1,12 +1,15 @@
 name: Pages
 
 on:
+  push:
+    tags:
+    - '*' 
   #push:
   #  branches:
   #    - main  # default branch
-  push:
-    tags:
-      - 'v*'
+  # push:
+  #   tags:
+  #     - 'v*'
   # label:
   #  types: [created, deleted]
     
