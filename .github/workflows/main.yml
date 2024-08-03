@@ -5,10 +5,10 @@ on:
   #  branches:
   #    - main  # default branch
   push:
-    tags: 
-      - '*'
-  label:
-    types: [created, deleted]
+    tags:
+      - 'v*'
+  # label:
+  #  types: [created, deleted]
     
 
 jobs:
