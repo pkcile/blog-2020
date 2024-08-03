@@ -1,9 +1,11 @@
-# 介绍
-## 1.Monorepo 项目
-Monorepo 是一种项目代码管理方式，指单个仓库中管理多个项目，有助于简化代码共享、版本控制、构建和部署等方面的复杂性，并提供更好的可重用性和协作性。Monorepo 提倡了开放、透明、共享的组织文化，这种方法已经被很多大型公司广泛使用，如 Google、Facebook 和 Microsoft 等。
+# blog-2020
+## 1.关于
+这是一个---个人导航网站项目。
 
 ## 2.提升开发效率
 ### Monorepo项目之使用Turborepo的使用
+monorepo是一种项目代码管理方式，指单个仓库中管理多个项目，有助于简化代码共享、版本控制、构建和部署等方面的复杂性，并提供更好的可重用性和协作性。Monorepo 提倡了开放、透明、共享的组织文化，这种方法已经被很多大型公司广泛使用，如 Google、Facebook 和 Microsoft 等。turborepo是vercel公司推出的monorepo类型的系统产品。
+
 单个项目注意事项，带package.json需带name和version
 ```
   "name": "my-app",
@@ -61,5 +63,3 @@ npm install rimraf -g
 
 rimraf node_modules
 ```
-
-npm install npm i webpack-dev-middleware@5.3.4  -w  apps/turf-www
