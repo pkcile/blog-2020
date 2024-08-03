@@ -38,7 +38,7 @@ yarn workspace my-app add jquery -D
 
 yarn 版本1.22.22 
 ```
-体验不好
+yarn不要升级到4.x版本，下载包容易出错，体验不好
 
 不要升级
 不要升级
