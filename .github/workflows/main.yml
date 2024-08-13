@@ -2,8 +2,9 @@ name: Pages
 
 on:
   push:
-    tags:
-    - '*' 
+    paths:
+      - 'realese.md'
+      - '!sub-project/docs/**'
   #push:
   #  branches:
   #    - main  # default branch
