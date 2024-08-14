@@ -1,7 +1,6 @@
 const ANALYZER_PORT = 7676;
 const SCRIPTS_ENV = 'production';
 process.env.NODE_ENV = SCRIPTS_ENV;
-process.env.BABEL_ENV = SCRIPTS_ENV;
 
 const Webpack = require('webpack');
 const paths = require('../config/paths');
