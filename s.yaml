@@ -31,7 +31,7 @@ resources:
         - acs:fc:${vars.region}:official:layers/Nodejs20/versions/1
       environmentVariables:
         PATH: >-
-          /opt/nodejs20/bin:/usr/local/bin/apache-maven/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/ruby/bin
+          /opt/nginx/sbin:/opt/nodejs20/bin:/usr/local/bin/apache-maven/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/ruby/bin
       customRuntimeConfig:
         command: 
           - nginx
