@@ -14,7 +14,7 @@ resources:
     component: fc3
     actions:
       pre-deploy:
-        - run: export PATH=/usr/local/versions/node/v20.8.1/bin:$PATH && npm install && npm run build && npm install serve -g && serve dist -p 9000 
+        - run: export PATH=/usr/local/versions/node/v20.8.1/bin:$PATH && npm install && npm run build && npm install serve -g 
           path: ./
     props:
       region: ${vars.region}
@@ -31,7 +31,10 @@ resources:
         PATH: >-
           /opt/nodejs20/bin:/usr/local/bin/apache-maven/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/ruby/bin
       customRuntimeConfig:
-        command:
+        command: echo "打印打印" 
+        command: serve -v
+        command: serve dist -p 9000 
+        command: echo "打印打印" 
         port: 9000
       functionName: ${vars.functionName}
       code: ./
