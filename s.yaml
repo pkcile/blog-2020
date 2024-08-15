@@ -32,10 +32,7 @@ resources:
           /opt/nodejs20/bin:/usr/local/bin/apache-maven/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/ruby/bin
       customRuntimeConfig:
         command: 
-          - echo "打印打印" 
-          - serve -v
           - serve dist -p 9000
-          - echo "打印打印"
         port: 9000
       functionName: ${vars.functionName}
       code: ./
