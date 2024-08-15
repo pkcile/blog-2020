@@ -14,7 +14,9 @@ resources:
     component: fc3
     actions:
       pre-deploy:
-        - run: export PATH=/usr/local/versions/node/v20.8.1/bin:$PATH && npm install && npm run build && npm install serve -g 
+        - run: export PATH=/usr/local/versions/node/v20.8.1/bin:$PATH && npm install && npm run build
+          path: ./
+        - run: cp nginx.conf ./build/nginx.conf
           path: ./
     props:
       region: ${vars.region}
@@ -32,11 +34,14 @@ resources:
           /opt/nodejs20/bin:/usr/local/bin/apache-maven/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/ruby/bin
       customRuntimeConfig:
         command: 
-          - serve 
-          - ./dist -p 9000
+          - nginx
+          - "-c"
+          - "/code/nginx.conf"
+          - "-g"
+          - "daemon off;"
         port: 9000
       functionName: ${vars.functionName}
-      code: ./
+      code: ./build
       triggers:
         - triggerName: httpTrigger
           triggerType: http
