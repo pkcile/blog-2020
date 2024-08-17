@@ -27,8 +27,6 @@ resources:
       memorySize: 128
       diskSize: 512
       instanceConcurrency: 100
-      layers:
-        - acs:fc:${vars.region}:official:layers/Nodejs20/versions/1
       environmentVariables:
         PATH: >-
           /opt/nginx/sbin:/opt/nodejs20/bin:/usr/local/bin/apache-maven/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/ruby/bin
