@@ -26,10 +26,10 @@ resources:
       cpu: 0.1
       memorySize: 128
       diskSize: 512
-      instanceConcurrency: 100
-      environmentVariables:
-        PATH: >-
-          /opt/nginx/sbin:/opt/nodejs20/bin:/usr/local/bin/apache-maven/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/ruby/bin
+      instanceConcurrency: 1
+      # environmentVariables:
+      #   PATH: >-
+      #     /opt/nginx/sbin:/opt/nodejs20/bin:/usr/local/bin/apache-maven/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/ruby/bin
       customRuntimeConfig:
         command: 
           - nginx
