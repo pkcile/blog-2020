@@ -119,6 +119,7 @@ new Promise((resolve, reject) => {
       }
     },
     (err) => {
+      console.log(err);
       error(new Error('构建失败并出现错误。'));
       if (err) {
         error(err.message ? err.message : err);

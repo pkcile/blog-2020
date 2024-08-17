@@ -8,6 +8,7 @@
 - 1.开发环境依赖占用147MB空间，包含11,803个文件
 ![安装的开发工具依赖说明](./assets/dev.png)
 - 2.移除babel postcss less，54.1 MB空间，包含8,994个文件
+- 3.降低css-loader（3.6.0）、css-minimizer-webpack-plugin（2.0.0）版本，临时屏蔽require('node:crypto')使用，可运行在node12环境
 
 
 
