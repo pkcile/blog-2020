@@ -7,7 +7,9 @@
   "scripts": {
     "build": "node ./scripts/build.js",
     "start": "node ./scripts/start.js",
-    "analyzer": "node ./scripts/build.js --report"
+    "analyzer": "node ./scripts/build.js --report",
+    "buildone": "node ./scripts/build.js && npm run onehtml",
+    "onehtml": "inline-script-tags dist/index.html ."
   },
   "devDependencies": {
     "case-sensitive-paths-webpack-plugin": "^2.4.0",
@@ -15,9 +17,9 @@
     "cliui": "^8.0.1",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^3.6.0",
-    "css-minimizer-webpack-plugin": "^2.0.0",
     "escape-string-regexp": "4.0.0",
     "html-webpack-plugin": "^5.5.0",
+    "inline-scripts": "^1.7.4",
     "mini-css-extract-plugin": "^2.6.1",
     "minimist": "^1.2.7",
     "ora": "5.4.1",
@@ -46,5 +48,7 @@
   "engines": {
     "node": ">= 18.12.1",
     "pnpm": ">= 7.15.0"
+  },
+  "dependencies": {
   }
 }

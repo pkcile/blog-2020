@@ -10,7 +10,7 @@ const Webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+// const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const path = require('path');
@@ -76,6 +76,9 @@ module.exports = (webpackEnv, envConfig) => {
               : {
                   loader: 'style-loader',
                 },
+            // {
+            //   loader: 'style-loader',
+            // },
             {
               loader: 'css-loader',
               options: {
@@ -301,7 +304,6 @@ module.exports = (webpackEnv, envConfig) => {
     // in `package.json`, in which case it will be the pathname of that URL.
       // html
       new HtmlWebpackPlugin({
-
         inject: true,
         // scriptLoading: 'defer',
         template: paths.appHtml,
@@ -359,7 +361,8 @@ module.exports = (webpackEnv, envConfig) => {
         new MiniCssExtractPlugin({
           filename: 'css/[name].[contenthash:8].css',
           chunkFilename: 'css/[name].[contenthash:8].css',
-        }),
+      }),
+      // new MiniCssExtractPlugin({}),
       // // 优化moment打包
       // new Webpack.IgnorePlugin({
       //   resourceRegExp: /^\.\/locale$/,
