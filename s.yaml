@@ -8,7 +8,7 @@ name: express-app
 access: "undefined"
 vars:
   region: "cn-hangzhou"
-  functionName: "express-gmc0"
+  functionName: "blog-2020"
 resources:
   start_express:
     component: fc3
