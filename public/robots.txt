@@ -1,3 +1,6 @@
-# https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Disallow: 
+Allow: /back/2024-07-21-blackwp/index.html
+Allow: /back/2024-07-06-update-info/index.html
+Allow: /back/2024-06-17-update2020/index.html
+Sitemap: http://www.pkcile.cn/sitemap.xml
