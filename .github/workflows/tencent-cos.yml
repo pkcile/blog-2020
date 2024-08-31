@@ -13,20 +13,30 @@ jobs:
       with: 
         ref: 'main'
         submodules: true
-
-    - name: Setup Node.js
-      uses: actions/setup-node@master
-      with: 
-        node-version: "18.x"
-
-    - name: Yarn Install Cache
-      uses: c-hive/gha-yarn-cache@v1
-
+        
+    - name: Use Node.js 16
+      uses: actions/setup-node@v4
+      with:
+        # Examples: 20, 18.19, >=16.20.2, lts/Iron, lts/Hydrogen, *, latest, current, node
+        # Ref: https://github.com/actions/setup-node#supported-version-syntax
+        node-version: '22.5.1'
+        
+    - name: Cache NPM dependencies
+      uses: actions/cache@v4
+      with:
+        path: node_modules
+        key: ${{ runner.OS }}-npm-cache
+        restore-keys: |
+          ${{ runner.OS }}-npm-cache
+          
     - name: Install Dependencies
-      run: yarn install
-
-    - name: Generate Hexo Site Public Files & Create Files for Blog Assets
-      run: yarn build
+      run: npm install
+    - name: Build
+      run: npm run build
+    - name: Upload Pages artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: dist
         
     - name: Install coscmd
       run: pip install coscmd
