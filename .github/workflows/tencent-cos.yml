@@ -8,7 +8,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
+    - name: Checkout Repository main branch
+      uses: actions/checkout@v2
+      with: 
+        ref: 'main'
+        submodules: true
+
+    - name: Setup Node.js
+      uses: actions/setup-node@master
+      with: 
+        node-version: "18.x"
+
+    - name: Yarn Install Cache
+      uses: c-hive/gha-yarn-cache@v1
+
+    - name: Install Dependencies
+      run: yarn install
+
+    - name: Generate Hexo Site Public Files & Create Files for Blog Assets
+      run: yarn build
+        
     - name: Install coscmd
       run: pip install coscmd
     - name: Configure coscmd
@@ -17,6 +36,7 @@ jobs:
         SECRET_KEY: ${{ secrets.SecretKey }}
         BUCKET: pkcile-1301890641
         REGION: ap-shanghai
-      run: coscmd config -a $SECRET_ID -s $SECRET_KEY -b $BUCKET -r $REGION
+      run: coscmd config -a ${SECRET_ID} -s ${SECRET_KEY} -b ${BUCKET} -r ${REGION}
+      
     - name: Upload
-      run: coscmd upload -rfs --delete ./ / --ignore "./.git/*"
+      run: coscmd upload -rs --delete ./dist/ / -f --ignore "./.git/*"
