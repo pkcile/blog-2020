@@ -38,15 +38,13 @@ jobs:
       with:
         path: dist
         
-    - name: Install coscmd
-      run: pip install coscmd
-    - name: Configure coscmd
+    - name: Deploy to Tencent COS
       env:
-        SECRET_ID: ${{ secrets.SecretId }}
-        SECRET_KEY: ${{ secrets.SecretKey }}
-        BUCKET: pkcile-1301890641
-        REGION: ap-shanghai
-      run: coscmd config -a ${SECRET_ID} -s ${SECRET_KEY} -b ${BUCKET} -r ${REGION}
-      
-    - name: Upload
-      run: coscmd upload -rs --delete ./dist/ / -f --ignore "./.git/*"
+        SECRET_ID: ${{ secrets.TENCENT_CLOUD_SECRET_ID }}
+        SECRET_KEY: ${{ secrets.TENCENT_CLOUD_SECRET_KEY }}
+        BUCKET: ${{ secrets.COS_BUCKET }}
+        REGION: ${{ secrets.COS_REGION }}
+      run: |
+        pip install coscmd
+        coscmd config -a ${SECRET_ID} -s ${SECRET_KEY} -b ${BUCKET} -r ${REGION}
+        coscmd upload -rs --delete ./dist/ / -f
