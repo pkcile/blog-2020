@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Install coscmd
-      run: sudo pip install coscmd
+      run: pip install coscmd
     - name: Configure coscmd
       env:
         SECRET_ID: ${{ secrets.SecretId }}
