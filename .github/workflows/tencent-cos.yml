@@ -44,7 +44,7 @@ jobs:
         BUCKET: ${{ secrets.COS_BUCKET }}
         REGION: ${{ secrets.COS_REGION }}
       run: |
-       coscmd config -a AKID1weATcntx4XyNeq1BF7oJacQnvoX3NTK -s $SECRET_KEY -b $BUCKET -r $REGION
+       coscmd config -a $SECRET_ID -s $SECRET_KEY -b $BUCKET -r $REGION
 
     - name: Upload
-      run: coscmd upload -rfs --delete ./ ./ --ignore "./.git/*"
+      run: coscmd upload -rfs --delete ./dist ./ --ignore "./.git/*"
