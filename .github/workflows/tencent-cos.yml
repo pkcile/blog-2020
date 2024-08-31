@@ -37,12 +37,17 @@ jobs:
       uses: actions/upload-pages-artifact@v3
       with:
         path: dist
-        
+
+    - name: Install coscmd
+      run: pip install coscmd
+      
     - name: Deploy to Tencent COS
       env:
         SECRET_ID: ${{ secrets.TENCENT_CLOUD_SECRET_ID }}
         SECRET_KEY: ${{ secrets.TENCENT_CLOUD_SECRET_KEY }}
         BUCKET: ${{ secrets.COS_BUCKET }}
         REGION: ${{ secrets.COS_REGION }}
-      run: |
-        echo ${SECRET_ID} 
+      run: coscmd config -a $TENCENT_CLOUD_SECRET_ID -s $TENCENT_CLOUD_SECRET_KEY -b $COS_BUCKET-r $COS_REGION
+
+    - name: Upload
+      run: coscmd upload -rfs --delete ./dist / --ignore "./.git/*"
