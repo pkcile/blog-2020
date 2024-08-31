@@ -45,9 +45,4 @@ jobs:
         BUCKET: ${{ secrets.COS_BUCKET }}
         REGION: ${{ secrets.COS_REGION }}
       run: |
-        pip install coscmd
         echo ${SECRET_ID} 
-        echo ${SECRET_KEY}
-        echo ${BUCKET}
-        echo ${REGION}
-        # coscmd upload -rs --delete ./dist/ / -f
