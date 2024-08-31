@@ -14,7 +14,7 @@ jobs:
         ref: 'main'
         submodules: true
         
-    - name: Use Node.js 16
+    - name: Use Node.js
       uses: actions/setup-node@v4
       with:
         # Examples: 20, 18.19, >=16.20.2, lts/Iron, lts/Hydrogen, *, latest, current, node
@@ -35,8 +35,6 @@ jobs:
       run: npm run build
     - name: Upload Pages artifact
       uses: actions/upload-pages-artifact@v3
-      with:
-        path: dist
 
     - name: Install coscmd
       run: sudo pip3 install coscmd
@@ -48,7 +46,7 @@ jobs:
         BUCKET: ${{ secrets.COS_BUCKET }}
         REGION: ${{ secrets.COS_REGION }}
       run: |
-       coscmd config -a AKID1weATcntx4XyNeq1BF7oJacQnvoX3NTK -s hFbh3BF7qLix4CGEGKCqKm9JJAvXBrRp -b pkcile-1301890641 -r ap-shanghai
+       coscmd config -a AKID1weATcntx4XyNeq1BF7oJacQnvoX3NTK -s $SECRET_KEY -b pkcile-1301890641 -r ap-shanghai
 
     - name: Upload
       run: coscmd upload -rfs --delete ./dist / --ignore "./.git/*"
