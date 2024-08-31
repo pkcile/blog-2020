@@ -47,8 +47,8 @@ jobs:
         SECRET_KEY: ${{ secrets.TENCENT_CLOUD_SECRET_KEY }}
         BUCKET: ${{ secrets.COS_BUCKET }}
         REGION: ${{ secrets.COS_REGION }}
-        run: |
-          coscmd config -a $TENCENT_CLOUD_SECRET_ID -s $TENCENT_CLOUD_SECRET_KEY -b $COS_BUCKET -r $COS_REGION
+      run: |
+        coscmd config -a $TENCENT_CLOUD_SECRET_ID -s $TENCENT_CLOUD_SECRET_KEY -b $COS_BUCKET -r $COS_REGION
 
     - name: Upload
       run: coscmd upload -rfs --delete ./dist / --ignore "./.git/*"
