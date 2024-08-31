@@ -1,6 +1,9 @@
 name: Upload to COS
 
-on: [push]
+on:
+  push:
+    paths:
+      - 'realese.md'
 
 jobs:
   build:
