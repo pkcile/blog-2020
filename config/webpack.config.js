@@ -58,11 +58,17 @@ module.exports = (webpackEnv, envConfig) => {
       rules: [
         /* 处理js */
         {
-          test: /\.js$/,
+          test: /\.(js|jsx)$/,
           include: path.resolve('src'),
           use: [
             "thread-loader",
             // 耗时的 loader （例如 babel-loader）
+            {
+              loader: "babel-loader",
+              options: {
+                presets: ['@babel/preset-env']
+              }
+            }
           ],
         },
         /* 处理css */
@@ -405,7 +411,11 @@ module.exports = (webpackEnv, envConfig) => {
     ].filter(Boolean),
     resolve: {
       alias: {
-        '@': paths.appSrc
+        '@': paths.appSrc,
+        "react": "preact/compat",
+        "react-dom/test-utils": "preact/test-utils",
+        "react-dom": "preact/compat",     // 必须放在 test-utils 下面
+        "react/jsx-runtime": "preact/jsx-runtime"
       },
       extensions: ['.js'],
       modules: ['node_modules', paths.appNodeModules],

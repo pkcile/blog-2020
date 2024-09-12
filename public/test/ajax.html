@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JQuery的初步使用</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+</head>
+<body>
+<script>
+    $.ajax('http://uc.qiniuapi.com/buckets?tagCondition=S09ETy1CVUtDRVQtVEFHUy1rZXktWDdPNjZiNkxLdz1LT0RPLUJVS', {
+        data: {
+            // name: 'wpk', test: '666'
+        },
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "X-Qiniu-Date": "20060102T150405Z",
+            "host": "uc.qiniuapi.com",
+            "Authorization": "Qiniu 3la3RgQEudX-eS-tVTxH_oKaNKEFaslDiyY78Ayh"
+        },
+        success: function(msg) {
+            alert("ajax测试成功");
+            console.log(msg);
+        }
+    });
+    //相当于window.onload
+
+    // //第一种写法
+    // $().ready(function() {
+    //     alert('第一种写法');
+    // });
+    // //第二种写法
+    // jQuery().ready(function() {
+    //     alert("第二种写法");
+    // });
+    // //第三种写法
+    // $(function() {
+    //     alert("第三种写法");
+    // })
+    // //第四种写法
+    // $(document).ready(function() {
+    //     alert("第四种写法");
+    // })
+</script>
+</body>
+</html>

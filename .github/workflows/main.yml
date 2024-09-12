@@ -3,7 +3,7 @@ name: Pages
 on:
   push:
     paths:
-      - 'realese.md'
+      - 'release.md'
       - '!sub-project/docs/**'
   #push:
   #  branches:
