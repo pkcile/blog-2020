@@ -11,6 +11,8 @@
 - 3.降低css-loader（3.6.0）、css-minimizer-webpack-plugin（2.0.0）版本，临时屏蔽require('node:crypto')使用，可运行在node12环境
 - 4.引入preact及相关开发依赖，开发环境下的依赖74.3 MB 11150个文件 ，打包时间延长至8秒
 
-
+git tag -a "v0.0.7" -m "使用preact改造该项目"
+git push origin v0.0.7
+git push origin tag -d v0.0.7
 
 

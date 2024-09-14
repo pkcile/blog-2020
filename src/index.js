@@ -4,7 +4,6 @@ import { render } from 'preact';
 import Router from 'preact-router';
 import { createHashHistory } from 'history';
 import AsyncRoute from 'preact-async-route';
-
 function Counter() {
 	return (
 		<div style={{
@@ -13,6 +12,10 @@ function Counter() {
 		}}>
 			<Router history={createHashHistory()}>
 				<IndexPage path="/" />
+				<AsyncRoute
+					path="/now/location"
+					getComponent={() => import('./pages/location/index.jsx').then(module => module.default)}
+				/>
 				<AsyncRoute
 					default
 					path="/404"

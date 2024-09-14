@@ -71,9 +71,19 @@ module.exports = (webpackEnv, envConfig) => {
             }
           ],
         },
+        {
+          test: /\.less$/,
+          include: path.resolve('src'),
+          use: [
+            'style-loader',
+            'css-loader',
+            'less-loader'
+          ]
+        },
         /* 处理css */
         {
           test: /\.css$/,
+          include: path.resolve('src'),
           use: [
             isEnvProduction
               ? {
@@ -138,8 +148,9 @@ module.exports = (webpackEnv, envConfig) => {
         {
           test: /\.(svg)(\?.*)?$/,
           type: 'asset/resource',
+          include: path.resolve('src'),
           generator: {
-            filename: 'img/[name].[hash:8][ext]',
+            filename: 'build/[name].[hash:8][ext]',
           },
         },
         /* 处理img */
@@ -147,7 +158,7 @@ module.exports = (webpackEnv, envConfig) => {
           test: /\.(png|jpe?g|gif|webp|avif)(\?.*)?$/,
           type: 'asset',
           generator: {
-            filename: 'img/[name].[hash:8][ext]',
+            filename: 'build/[name].[hash:8][ext]',
           },
           parser: {
             dataUrlCondition: {
@@ -159,16 +170,18 @@ module.exports = (webpackEnv, envConfig) => {
         {
           test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
           type: 'asset',
+          include: path.resolve('src'),
           generator: {
-            filename: 'media/[name].[hash:8][ext]',
+            filename: 'build/[name].[hash:8][ext]',
           },
         },
         /* 处理font */
         {
           test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/i,
           type: 'asset',
+          include: path.resolve('src'),
           generator: {
-            filename: 'fonts/[name].[hash:8][ext]',
+            filename: 'build/[name].[hash:8][ext]',
           },
         },
       ],
@@ -176,11 +189,11 @@ module.exports = (webpackEnv, envConfig) => {
     output: {
       path: paths.appBuild,
       filename: isEnvProduction
-        ? 'js/[name].[contenthash:8].js'
-        : 'js/[name].js',
+        ? 'build/[name].[contenthash:8].js'
+        : 'build/[name].js',
       chunkFilename: isEnvProduction
-        ? 'js/[name].[contenthash:8].js'
-        : 'js/[name].js',
+        ? 'build/[name].[contenthash:8].js'
+        : 'build/[name].js',
       clean: isEnvProduction && {
         keep(asset) {
           return asset.includes('public');
@@ -220,6 +233,9 @@ module.exports = (webpackEnv, envConfig) => {
       // runtimeChunk: isEnvProduction && { name: 'runtime' }, // 抽离runtime chunk
       // 分包
       splitChunks: {
+        chunks: 'initial',
+        minSize: 100000,
+        minChunks: 1,
         cacheGroups: {
           defaultVendors: {
             name: 'chunk-vendors',
