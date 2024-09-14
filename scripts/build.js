@@ -40,7 +40,9 @@ modifyConfig(webpackConfig, (config) => {
       ignored: /node_modules/,
     };
   }
-  // 构建进度
+
+  try {
+      // 构建进度
   config.plugins.push(
     new Webpack.ProgressPlugin((percentage, message, ...args) => {
       changeSpinner({
@@ -50,6 +52,10 @@ modifyConfig(webpackConfig, (config) => {
       });
     })
   );
+  } catch (error) {
+      console.log(error)
+  }
+
 });
 
 logWithSpinner(`正在启动生成优化后的${envConfig.RUN_ENV}环境的项目包...\n`);

@@ -60,16 +60,32 @@ module.exports = (webpackEnv, envConfig) => {
         {
           test: /\.(js|jsx)$/,
           include: path.resolve('src'),
-          use: [
-            "thread-loader",
-            // 耗时的 loader （例如 babel-loader）
-            {
-              loader: "babel-loader",
-              options: {
-                presets: ['@babel/preset-env']
-              }
+          // use: [
+          //   // "thread-loader",
+          //   // 耗时的 loader （例如 babel-loader）
+          //   {
+          //     loader: "babel-loader",
+          //     options: {
+          //       presets: ['@babel/preset-env', {
+          //         targets: {
+          //           ie: '8'
+          //         }
+          //       }]
+          //     }
+          //   }
+          // ],
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                ['@babel/preset-env', {
+                  targets: {
+                    ie: '8'
+                  }
+                }]
+              ]
             }
-          ],
+          }
         },
         {
           test: /\.less$/,
@@ -437,5 +453,6 @@ module.exports = (webpackEnv, envConfig) => {
       modules: ['node_modules', paths.appNodeModules],
     },
     stats: 'errors-only',
+    target: ['web', 'es5'],
   };
 };

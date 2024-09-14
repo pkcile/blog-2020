@@ -19,7 +19,6 @@ export default function Location() {
 	}
 	useEffect(() => {
 		api.get('/query', {studyth: 123, password: 1}).then(res => {
-			console.log(res.data)
 		})
 	})
 

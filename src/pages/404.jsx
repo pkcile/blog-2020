@@ -22,7 +22,7 @@ export default function NotFound2() {
 						textDecoration: "underline"
 					}}
 
-					href="http://www.pkcile.cn">请跳转回主页</a></h1>
+					href="/">请跳转回主页</a></h1>
 		</div>
 	);
 }

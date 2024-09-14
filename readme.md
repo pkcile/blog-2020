@@ -24,4 +24,40 @@ git push origin v0.0.7
 git push origin tag -d v0.0.7
 ```
 
-
+ie 10、11 promise未识别
+```
+import Promise from 'babel-polyfill';
+// 解决promise 在ie中未定义的问题
+function Promise(executor) {
+	this.state = 'pending';
+	this.value = undefined;
+	this.reason = undefined;
+	this.onFulfilledCallbacks = [];
+	this.onRejectedCallbacks = [];
+	const resolve = (value) => {
+	  if (this.state === 'pending') {
+		this.state = 'resolved';
+		this.value = value;
+		this.onFulfilledCallbacks.forEach((callback) => callback(value));
+	  }
+	};
+  
+	const reject = (reason) => {
+	  if (this.state === 'pending') {
+		this.state = 'rejected';
+		this.reason = reason;
+		this.onRejectedCallbacks.forEach((callback) => callback(reason));
+	  }
+	};
+  
+	try {
+	  executor(resolve, reject);
+	} catch (error) {
+	  reject(error);
+	}
+}
+if (!window.Promise) {
+	window.Promise = Promise;
+}
+```
+使用AsyncRoute后兼容性降低，最乐观，最好能兼容ie 10+(难，上限)
