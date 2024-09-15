@@ -3,4 +3,25 @@ Disallow:
 Allow: /back/2024-07-21-blackwp/index.html
 Allow: /back/2024-07-06-update-info/index.html
 Allow: /back/2024-06-17-update2020/index.html
+
+Disallow: /123.aspx
+Disallow: /index.php
+Disallow: /admin.php 
+Disallow: /xmlrpc.php
+Disallow: /side_comment_json.php
+Disallow: /xmlrpc.php 
+Disallow: /include
+Disallow: /images/
+Disallow: /shifen/
+Disallow: /zb_users
+Disallow: /zb_system
+Disallow: /e
+Disallow: /template
+Disallow: /.git 
+Disallow: /DialogTemplates
+Disallow: /Public
+Disallow: /qiniu_do_not_delete_FRnXnsPp.gif 
+Disallow: /qiniu_do_not_delete_qhIkGKHf.gif
+Disallow: /css
+
 Sitemap: http://www.pkcile.cn/sitemap.xml
