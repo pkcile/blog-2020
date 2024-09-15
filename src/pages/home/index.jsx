@@ -1,5 +1,5 @@
 import { Fragment, useEffect } from 'react';
-import '@/assets/index.css'
+import './index.less'
 export default function IndexPage() {
   useEffect(function () {
     document.getElementById("aboutControlFun").addEventListener("click", function () {
@@ -52,7 +52,7 @@ export default function IndexPage() {
   }, [])
 
   return (
-    <Fragment>
+    <div class="winform">
       <div class="main">
         <header class="htile">
         </header>
@@ -67,7 +67,7 @@ export default function IndexPage() {
 
         </div>
 
-        <ul id="about" class="main" >
+        <ul id="about" class="main secondpage" >
           <header class="htile">
           </header>
           <nav class="htopic">
@@ -108,7 +108,7 @@ export default function IndexPage() {
           ...
         </li>
       </ul>
-    </Fragment>
+    </div>
 
 
   );
