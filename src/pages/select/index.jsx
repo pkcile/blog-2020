@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './index.less'; // 引入样式文件
 
-const Select = ({ options, placeholder, width ='100%' }) => {
+const Select = ({ options, placeholder, width ='100%', onChange }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState('');
 
@@ -12,6 +12,7 @@ const Select = ({ options, placeholder, width ='100%' }) => {
     const handleOptionClick = (option) => {
         setSelectedOption(option);
         setIsOpen(false);
+        onChange(option);
     };
 
 

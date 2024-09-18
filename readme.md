@@ -15,7 +15,7 @@
 - 3.降低css-loader（3.6.0）、css-minimizer-webpack-plugin（2.0.0）版本，临时屏蔽require('node:crypto')使用，可运行在node12环境
 - 4.引入preact及相关开发依赖，开发环境下的依赖74.3 MB 11150个文件 ，打包时间延长至8秒
 - 5.依赖更新添加less-loader，开发环境下的依赖78.6 MB 11653个文件
-
+- 6.将后端添加到一个项目中方便开发，开发环境下的依赖146MB 16,371个文件(暂缓)
 #### 3.命令速记
 ```
 rimraf .\node_modules\

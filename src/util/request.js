@@ -179,3 +179,17 @@ api.addResponseInterceptor(async (response) => {
     }
     return response;
 });
+
+// Base64 编码
+function encodeToBase64(str) {
+    return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function (match, p1) {
+        return String.fromCharCode('0x' + p1);
+    }));
+}
+
+// Base64 解码
+function decodeFromBase64(str) {
+    return decodeURIComponent(atob(str).split('').map(function (c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+}

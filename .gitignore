@@ -12,3 +12,4 @@ yarn.lock
 # Editor directories and files
 .idea
 .vscode
+backend

@@ -13,13 +13,13 @@
     flex-wrap: nowrap;
     justify-content: flex-end;
     background-color: #f7f7f7;
-    max-width: 975px;
     margin: 0 auto;
     .updatelocation {
         width: 25px;
         height: 25px;
         padding: 12px 25px 12px 25px;
-        fill: #4aab4e;
+        // fill: #4aab4e;
+        fill: #777;
         cursor: pointer;
     }
     
@@ -34,7 +34,6 @@
 .container {
     background-color: var(--card-background);
     padding: 15px;
-    max-width: 975px;
     margin: 0 auto;
     height: calc(100% - 50px);
     box-sizing: border-box;
@@ -89,6 +88,24 @@
     
     .update-btn:hover {
         background-color: #45a049;
+    }
+
+    .commit-btn {
+        display: block;
+        width: 100%;
+        padding: 14px;
+        background-color: #0366D6;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: 600;
+        transition: background-color 0.3s ease;
+    }
+    
+    .commit-btn:hover {
+        background-color: #0366D6;
     }
     
     .common-footer {

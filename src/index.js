@@ -8,9 +8,9 @@ import Location from './pages/location/index.jsx'
 function Counter() {
 	return (
 		<Router history={createHashHistory()}>
-		<IndexPage path="/" />
-		<Location path="/now/location" />
-		{/* <AsyncRoute
+			<IndexPage path="/" />
+			<Location path="/now/location" />
+			{/* <AsyncRoute
 			path="/now/location"
 			getComponent={() => import('./pages/location/index.jsx').then(module => module.default)}
 		/>
@@ -19,7 +19,7 @@ function Counter() {
 			path="/404"
 			getComponent={() => import('./pages/404.jsx').then(module => module.default)}
 		/> */}
-	</Router>
+		</Router>
 	);
 }
 
