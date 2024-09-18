@@ -9,7 +9,11 @@ import Mapleaflet from "../map/index.jsx"
 export default function Location() {
 	// 获取 GPU 信息
 	let [gpuInfor, setGpuInfor] = useState(getGPUInfo())
-	let [location, setLocation] = useState()
+	let [location, setLocation] = useState({
+		accuracy: 76,
+		latitude:22.5428599,
+		longitude: 114.05956,
+	})
 	let [locationI, setLocationI] = useState()
 	let [locationInfo, setLocationInfo] = useState()
 	let [comment, setComment] = useState('')
@@ -75,7 +79,7 @@ export default function Location() {
 		>
 			<Spin size={30} color="#f00" displayitem={spinstatus} />
 			<Notification noticemessageobj={noticemessageobj} duration={5000} ref={childRef} />
-			{mapstatus && <Mapleaflet setMapstatus={setMapstatus}></Mapleaflet>}
+			{mapstatus && <Mapleaflet setMapstatus={setMapstatus} location={location}></Mapleaflet>}
 			<div
 				className="top-update-location"
 			>
@@ -100,8 +104,17 @@ export default function Location() {
 					<div class="form-group">
 						<label for="name">位置信息</label>
 						<div>
-							<input type="text" id="name" value={locationInfo} readonly style={{ cursor: "pointer" }} />
-							{locationI && <input type="text" style={{ color: '#000', marginTop: '10px', cursor: "pointer" }} readonly value={locationI}></input>}
+							<input type="text" id="name" value={locationInfo} readonly style={{ cursor: "pointer" }} onClick={()=> {
+								if(locationI) {
+									setMapstatus(true)
+								} else {
+									if (childRef.current) {
+										childRef.current.callShowAlert();
+										setNoticemessageobj({ message: '请先获取位置', type: "error"})
+									}
+								}
+							}}/>
+							{locationI && <input type="text" style={{ color: '#000', marginTop: '10px', cursor: "pointer" }} readonly value={locationI} onClick={()=> {setMapstatus(true)}}></input>}
 						</div>
 					</div>
 					<div class="form-group">
@@ -131,6 +144,7 @@ export default function Location() {
 					{
 						location?.longitude && <button class="commit-btn" onClick={function name(params) {
 							if (location && location?.latitude) {
+								setSpinstatus('flex')
 								// 更新
 								api.get('/add',
 									{
@@ -148,6 +162,7 @@ export default function Location() {
 											setNoticemessageobj({ message: '更新位置成功', type: "success"});
 											setMapstatus(true)
 										}
+										setSpinstatus('none')
 									})
 							}
 							// 重新定位

@@ -1,43 +1,82 @@
 import React, { useEffect } from 'react';
 import './index.less'
-import * as locationcss from "../location/index.less"
 // 有性能问题
-const Mapleaflet = ({setMapstatus }) => {
-  function loadLeaflet() {
+const Mapleaflet = ({setMapstatus, location }) => {
+
+  function loadLeaflet(locationDevice) {
+    let zoom = 4;
+    let longitude = locationDevice?.longitude;
+    let latitude = locationDevice?.latitude;
+    if(locationDevice?.accuracy > 10000) {
+      zoom = 4;
+    } else {
+      zoom = 17
+    }
+    console.log(zoom)
     let map = L.map('mapleaflet', {
       maxZoom: 18,
       dragging: true,
-    }).setView([39.92, 116.39], 4);
+    }).setView([latitude, longitude], zoom);
+    // const map = L.map('mapleaflet').setView([51.505, -0.09], 13);
+
 
     L.tileLayer(
       'https://temp.pkcile.cn/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
       attribution: false,
       maxZoom: 18,
       detectRetina: false,
-      // opacity: 0.9
-      // zoomOffset: 1,
     }
     ).addTo(map);
+
+    const circle = L.circle([latitude, longitude], {
+      color: '#fff',
+      fillColor: '#e27728',
+      fillOpacity: 1,
+      radius: 5,
+      stroke: true,
+      weight: 2
+    }).addTo(map);
+
+    const circle2 = L.circle([latitude, longitude], {
+      color: '#e27728',
+      fillColor: '#e27728',
+      stroke: true,
+      weight: 2,
+      fillOpacity: 0.1,
+      radius: locationDevice?.accuracy
+    }).addTo(map);
+    var textLabel = L.divIcon({
+      className: 'text-label',
+      html: '<div style="background-color: white; padding: 5px; border: 1px solid black;">圆形区域</div>'
+  });
+  var marker = L.marker([latitude - 0.0002, longitude + 0.000] ).addTo(map);
+  console.log(marker.setOpacity(0)  )
+  circle2.bindPopup(`你在${locationDevice?.accuracy}米范围内` );
+  // marker.bindTooltip("圆形描述", {permanent: true, direction: 'right', });
+  // L.marker([latitude, longitude], {icon: textLabel}).addTo(map);
+
   }
 
   useEffect(function () {
+    console.log(location)
+    // latitude: 22.5428599, longitude: 114.05956, altitude: null, accuracy: 1853762.75601366,
     if (typeof L == "undefined") {
       var script = document.createElement('script');
-      script.src = 'https://unpkg.com/leaflet@1.8.0/dist/leaflet.js'
+      script.src = 'https://unpkg.com/leaflet@1.7.0/dist/leaflet.js'
       script.onload = function () {
         const link = document.createElement('link');
         link.rel = 'stylesheet';
-        link.href = 'https://unpkg.com/leaflet@1.8.0/dist/leaflet.css';
+        link.href = 'https://unpkg.com/leaflet@1.7.0/dist/leaflet.css';
         link.onload = function () {
-          loadLeaflet()
+          loadLeaflet(location)
         }
         document.head.appendChild(link);
       }
       document.head.appendChild(script);
     } else {
-      loadLeaflet()
+      loadLeaflet(location)
     }
-  }, [])
+  }, [location])
   return (
     <div style={{ position: 'fixed', width: '100%', height: '100%', zIndex: 1 }} id="mapleaflet">
       <div
