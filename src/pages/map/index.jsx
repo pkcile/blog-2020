@@ -12,7 +12,6 @@ const Mapleaflet = ({setMapstatus, location }) => {
     } else {
       zoom = 17
     }
-    console.log(zoom)
     let map = L.map('mapleaflet', {
       maxZoom: 18,
       dragging: true,
@@ -50,7 +49,7 @@ const Mapleaflet = ({setMapstatus, location }) => {
       html: '<div style="background-color: white; padding: 5px; border: 1px solid black;">圆形区域</div>'
   });
   var marker = L.marker([latitude - 0.0002, longitude + 0.000] ).addTo(map);
-  console.log(marker.setOpacity(0)  )
+  marker.setOpacity(0) 
   circle2.bindPopup(`你在${locationDevice?.accuracy}米范围内` );
   // marker.bindTooltip("圆形描述", {permanent: true, direction: 'right', });
   // L.marker([latitude, longitude], {icon: textLabel}).addTo(map);
@@ -58,8 +57,6 @@ const Mapleaflet = ({setMapstatus, location }) => {
   }
 
   useEffect(function () {
-    console.log(location)
-    // latitude: 22.5428599, longitude: 114.05956, altitude: null, accuracy: 1853762.75601366,
     if (typeof L == "undefined") {
       var script = document.createElement('script');
       script.src = 'https://unpkg.com/leaflet@1.7.0/dist/leaflet.js'

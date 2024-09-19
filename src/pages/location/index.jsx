@@ -8,9 +8,9 @@ import Mapleaflet from "../map/index.jsx"
 
 export default function Location() {
 	// 获取 GPU 信息
-	let [gpuInfor, setGpuInfor] = useState(getGPUInfo())
+	let [gpuInfor, setGpuInfor] = useState("")
 	let [location, setLocation] = useState({
-		accuracy: 76,
+		accuracy: 0.001,
 		latitude:22.5428599,
 		longitude: 114.05956,
 	})
@@ -25,17 +25,7 @@ export default function Location() {
 	})
 	let [mapstatus, setMapstatus] = useState(false)
 	const childRef = useRef();
-	function getGPUInfo() {
-		const canvas = document.createElement('canvas');
-		const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-		if (gl) {
-			const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
-			if (debugInfo) {
-				return gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
-			}
-		}
-		return '无法获取 GPU 信息';
-	}
+
 
 	const updatelocation = function () {
 
@@ -44,35 +34,44 @@ export default function Location() {
 			setLocationInfo('请检查浏览器是否支持定位');
 		} else {
 			navigator.geolocation.getCurrentPosition(function name(sucess) {
-				console.log(sucess)
 				if (sucess?.coords) {
 					let lat = sucess.coords.latitude;
 					let lon = sucess.coords.longitude;
 					tiandituquery.get('', { type: 'geocode', postStr: JSON.stringify({ 'lon': lon, 'lat': lat, 'ver': 1 }), tk: 'c2eac0b552d848155c72b1d3f6aabf36' }).then(res => {
 						setSpinstatus('none')
-						let obj = JSON.parse(res);
+						// let obj = JSON.parse(res);
+
 						setLocation(sucess.coords);
-						setLocationInfo(obj?.result?.formatted_address + "," + obj?.result?.addressComponent?.address);
+						setLocationInfo(res?.result?.formatted_address + "," + res?.result?.addressComponent?.address);
 						setLocationI(lon.toFixed(4) + "," + lat.toFixed(4))
 					})
 				}
 
 
-			}, function name() {
+			}, function name(error) {
+				console.error(error);
 				setSpinstatus('none')
 				setLocationInfo('无法获取地理位置信息');
 				if (childRef.current) {
 					childRef.current.callShowAlert();
-					setNoticemessageobj({message: '无法获取地理位置信息', type: "error"});
+					setNoticemessageobj({message: '无法获取地理位置信息 ' + error?.message , type: "error"});
 				}
 			}, {
-				enableHighAccuracy: true,
-				timeout: 5000,
+				enableHighAccuracy: false,
+				// timeout: 1000,
 			});
 		}
 	}
 	useEffect(() => {
-	})
+		const canvas = document.createElement('canvas');
+		const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+		if (gl) {
+			const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+			if (debugInfo) {
+				setGpuInfor(gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL));
+			}
+		}
+	}, [])
 	return (
 		<div
 			style="height: 100%; width: 100%;background:#fff; position: fixed; "
@@ -139,10 +138,10 @@ export default function Location() {
 
 				<div className="container-footer">
 					{
-						!location?.longitude && <button class="update-btn" onClick={updatelocation}>更新位置</button>
+						location?.accuracy == 0.001 && <button class="update-btn" onClick={updatelocation}>更新位置</button>
 					}
 					{
-						location?.longitude && <button class="commit-btn" onClick={function name(params) {
+						location?.accuracy != 0.001 && <button class="commit-btn" onClick={function name(params) {
 							if (location && location?.latitude) {
 								setSpinstatus('flex')
 								// 更新
@@ -151,11 +150,10 @@ export default function Location() {
 										locationInfo,
 										comment,
 										theme,
-										location: JSON.stringify({
-											latitude: location?.latitude,
-											longitude: location?.longitude,
-											accuracy: location?.accuracy
-										})
+										gpuInfor,
+										latitude: location?.latitude,
+										longitude: location?.longitude,
+										accuracy: location?.accuracy
 									}).then(res => {
 										if (childRef.current) {
 											childRef.current.callShowAlert();

@@ -59,8 +59,13 @@ class HttpClient {
             if (!processedResponse.ok) {
                 console.error(`HTTP error! status: ${processedResponse.status}`);
             }
-
-            return processedResponse.data;
+            var data =  {}
+            try {
+                data = JSON.parse(processedResponse.data)
+            } catch (error) {
+                console.error(error);
+            }
+            return data;
         } catch (error) {
             console.error('Request failed:', error);
             return {
