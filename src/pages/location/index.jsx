@@ -5,25 +5,35 @@ import Spin from "../spin/index.jsx"
 import Select from "../select/index.jsx"
 import Notification from "../notification/index.jsx"
 import Mapleaflet from "../map/index.jsx"
-
+import {getCanvasFpMd5, createEnglishUsername } from "../../util/utils.js"
 export default function Location() {
 	// 获取 GPU 信息
 	let [gpuInfor, setGpuInfor] = useState("")
 	let [location, setLocation] = useState({
 		accuracy: 0.001,
-		latitude:22.5428599,
+		latitude: 22.5428599,
 		longitude: 114.05956,
 	})
 	let [locationI, setLocationI] = useState()
 	let [locationInfo, setLocationInfo] = useState()
 	let [comment, setComment] = useState('')
 	let [theme, setTheme] = useState('闲来无事')
-	let [themOptions, setThemOptions] = useState(['闲来无事', '气定神清', '我心飞翔'])
+	let [themOptions, setThemOptions] = useState([
+		'快速标记', 
+		'我的定位', 
+		//'领取任务',
+		//'本地记录'
+	])
 	let [spinstatus, setSpinstatus] = useState("none")
 	let [noticemessageobj, setNoticemessageobj] = useState({
 		message: '',
 	})
 	let [mapstatus, setMapstatus] = useState(false)
+	let [commentStatus, setCommentStatus] = useState(false);
+	let [finger, setFinger] = useState(false);
+	let [fingerDetail, setFingerDetail] = useState();
+	let [username, setUsername] = useState('')
+	let [usernametemp, setUsernametemp] = useState('')
 	const childRef = useRef();
 
 
@@ -54,11 +64,11 @@ export default function Location() {
 				setLocationInfo('无法获取地理位置信息');
 				if (childRef.current) {
 					childRef.current.callShowAlert();
-					setNoticemessageobj({message: '无法获取地理位置信息 ' + error?.message , type: "error"});
+					setNoticemessageobj({ message: '无法获取地理位置信息 ' + error?.message, type: "error" });
 				}
 			}, {
-				enableHighAccuracy: false,
-				// timeout: 1000,
+				// enableHighAccuracy: false,
+				timeout: 8000,
 			});
 		}
 	}
@@ -71,6 +81,8 @@ export default function Location() {
 				setGpuInfor(gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL));
 			}
 		}
+		console.log(getCanvasFpMd5())
+		setFingerDetail(getCanvasFpMd5())
 	}, [])
 	return (
 		<div
@@ -95,25 +107,19 @@ export default function Location() {
 			<div class="container" >
 				<div className="container-main">
 					<div class="form-group">
-						<label for="studentId">设备信息</label>
-						<div>
-							<input type="text" id="studentId" value={gpuInfor} readOnly />
-						</div>
-					</div>
-					<div class="form-group">
 						<label for="name">位置信息</label>
 						<div>
-							<input type="text" id="name" value={locationInfo} readonly style={{ cursor: "pointer" }} onClick={()=> {
-								if(locationI) {
+							<input type="text" id="locationinput" value={locationInfo} readonly style={{ cursor: "pointer" }} onClick={() => {
+								if (locationI) {
 									setMapstatus(true)
 								} else {
 									if (childRef.current) {
 										childRef.current.callShowAlert();
-										setNoticemessageobj({ message: '请先获取位置', type: "error"})
+										setNoticemessageobj({ message: '请先获取位置', type: "error" })
 									}
 								}
-							}}/>
-							{locationI && <input type="text" style={{ color: '#000', marginTop: '10px', cursor: "pointer" }} readonly value={locationI} onClick={()=> {setMapstatus(true)}}></input>}
+							}} />
+							{locationI && <input type="text" id="locationinforinput" style={{ color: '#000', marginTop: '10px', cursor: "pointer" }} readonly value={locationI} onClick={() => { setMapstatus(true) }}></input>}
 						</div>
 					</div>
 					<div class="form-group">
@@ -126,14 +132,74 @@ export default function Location() {
 							/>
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="class">备注</label>
+					{theme == "我的定位" && <div class="form-group">
+						<label for="studentId">设备信息</label>
+						<div>
+							<input type="text" id="studentId" value={gpuInfor} readOnly />
+						</div>
+					</div>}
+					{theme == "我的定位" && <div class="form-group">
+						<label for="class">标识自己</label>
+						<label
+							style={{ paddingLeft: "5px" }}
+						>
+							<input
+								type="checkbox"
+								name="option1"
+								checked={finger}
+								// placeholder={`设备指纹：${}`}
+								onChange={(e) => {
+										if(!finger) {
+											if(usernametemp != "") {
+												setUsername(usernametemp)
+											} else {
+												setUsername(createEnglishUsername(fingerDetail))
+											}	
+										} else {
+											setUsername('')
+										}
+										setFinger(!finger)
+									}
+								}
+
+							/>
+							对映用户
+						</label>
+						<label
+							style={{ paddingLeft: "5px" }}
+						>
+							<input
+								type="checkbox"
+								name="option1"
+								checked={commentStatus}
+								onChange={(e) => {
+									setCommentStatus(!commentStatus)
+								}
+								}
+
+							/>
+							备注
+						</label>
+						<div>
+							<input type="text" id="class" 
+							value={username}
+							placeholder={fingerDetail}
+							onChange={e => {
+								setUsername(e.target.value)
+								setUsernametemp(e.target.value)
+							}}
+							/>
+						</div>
+					</div>}
+					{(theme != "签到标记" && (theme != "我的定位" || commentStatus)) && <div class="form-group">
+						{/* <label for="class">备注</label> */}
 						<div>
 							<input type="text" id="class" value={comment}
+								placeholder="备注"
 								onChange={e => setComment(e.target.value)}
 							/>
 						</div>
-					</div>
+					</div>}
 				</div>
 
 				<div className="container-footer">
@@ -153,11 +219,13 @@ export default function Location() {
 										gpuInfor,
 										latitude: location?.latitude,
 										longitude: location?.longitude,
-										accuracy: location?.accuracy
+										accuracy: location?.accuracy,
+										fingerDetail: fingerDetail,
+										username: username
 									}).then(res => {
 										if (childRef.current) {
 											childRef.current.callShowAlert();
-											setNoticemessageobj({ message: '更新位置成功', type: "success"});
+											setNoticemessageobj({ message: '更新位置成功', type: "success" });
 											setMapstatus(true)
 										}
 										setSpinstatus('none')

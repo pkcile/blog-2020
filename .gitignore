@@ -13,3 +13,4 @@ yarn.lock
 .idea
 .vscode
 backend
+package-lock.json

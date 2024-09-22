@@ -166,9 +166,10 @@ class HttpClient {
         return data;
     }
 }
+import config from './config';
 
 // 使用示例
-export  const api = new HttpClient('http://localhost:9000/rest/api/position');
+export const api = new HttpClient(`${config.backendUrl}rest/api/position`);
 export const tiandituquery = new HttpClient('https://api.tianditu.gov.cn/geocoder');
 
 // 添加请求拦截器示例

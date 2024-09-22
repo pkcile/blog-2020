@@ -6,6 +6,9 @@
     --card-background: #ffffff;
 }
 
+div,input,select,button {
+    user-select: none;
+}
 .top-update-location {
     height: 50px;
     display: flex;
@@ -51,10 +54,14 @@
     }
     
     label {
-        display: block;
+        display: inline-block;
         margin-bottom: 8px;
         color: var(--text-color);
         font-weight: 500;
+    }
+
+    #locationinput, #locationinforinput{
+        caret-color: transparent; 
     }
     
     input[type="text"] {

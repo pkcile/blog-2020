@@ -3,6 +3,7 @@ process.env.NODE_ENV = 'development';
 const Webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const envConfig = require('../config/env');
+const path = require('path')
 const {
   error,
   done,
@@ -30,7 +31,9 @@ const webpackDevServerConfig = require('../config/webpackDevServer.config')(
 
 // 添加server配置
 modifyConfig(webpackConfig, (config) => {
-  config.devServer = { ...webpackDevServerConfig };
+  config.devServer = { 
+    ...webpackDevServerConfig,
+   };
 });
 
 logWithSpinner(`启动${envConfig.RUN_ENV}环境开发服务器...\n`);

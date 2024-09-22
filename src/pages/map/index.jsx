@@ -59,11 +59,11 @@ const Mapleaflet = ({setMapstatus, location }) => {
   useEffect(function () {
     if (typeof L == "undefined") {
       var script = document.createElement('script');
-      script.src = 'https://unpkg.com/leaflet@1.7.0/dist/leaflet.js'
+      script.src = './lib/leaflet/leaflet.js'
       script.onload = function () {
         const link = document.createElement('link');
         link.rel = 'stylesheet';
-        link.href = 'https://unpkg.com/leaflet@1.7.0/dist/leaflet.css';
+        link.href = './lib/leaflet/leaflet.min.css';
         link.onload = function () {
           loadLeaflet(location)
         }

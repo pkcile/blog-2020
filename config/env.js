@@ -1,7 +1,7 @@
 // 获取命令行传参
 const parseArgv = require('minimist')(process.argv.slice(2));
 
-const generateRequestConfig = require('./request'); 
+// const generateRequestConfig = require('./request'); 
 
 // 解析运行时环境
 const buildEnvEnum = ['dev', 'local', 'qa', 'preview', 'prod'];
@@ -36,6 +36,6 @@ module.exports = Object.keys(parseArgv).reduce(
     NODE_ENV,
     RUN_ENV,
     sourcemap: false,
-    ...generateRequestConfig(RUN_ENV, NODE_ENV),
+    // ...generateRequestConfig(RUN_ENV, NODE_ENV),
   }
 );

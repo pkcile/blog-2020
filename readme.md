@@ -61,3 +61,12 @@ if (!window.Promise) {
 }
 ```
 使用AsyncRoute后兼容性降低，最乐观，最好能兼容ie 10+(难，上限)
+
+##### md折叠用法
+<details>
+<summary>点击展开</summary>
+
+这是隐藏的内容。
+- 项目1
+- 项目2
+</details>

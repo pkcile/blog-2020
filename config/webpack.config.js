@@ -299,7 +299,7 @@ module.exports = (webpackEnv, envConfig) => {
               conditionals: true,
               dead_code: true,
               evaluate: true,
-              pure_funcs: ['console.log', 'console.info'],
+              // pure_funcs: ['console.log', 'console.info'],
               drop_debugger: true,
             },
             mangle: {
@@ -334,6 +334,7 @@ module.exports = (webpackEnv, envConfig) => {
       // 定义全局变量
       new Webpack.DefinePlugin({
         webpackDefineEnvConfig: JSON.stringify(envConfig),
+        'process.env.backendUrl': JSON.stringify(process.env.backendUrl),
       }),
     // Makes some environment variables available in index.html.
     // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
