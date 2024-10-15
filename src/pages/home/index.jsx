@@ -95,6 +95,10 @@ export default function IndexPage() {
               <span>距今天：</span>
               <span id="update-infor-last"></span>
             </li>
+            <li>
+              <span>构建信息：</span>
+              <span id="update-infor-last"><span class="ICP-number">{config.buildversion}</span></span>
+            </li>
           </ul>
 
         </ul>
@@ -104,12 +108,7 @@ export default function IndexPage() {
       <ul class="footer">
         <li class="ICP">
           <a href="https://beian.miit.gov.cn/">
-            {footDirect && (
             <><span class="ICP-title">备案号：</span><span class="ICP-number">冀ICP备2020027680号-1</span></>
-            )}
-            {!footDirect && (
-            <><span class="ICP-title">构建：</span><span class="ICP-number">{config.buildversion}</span></>
-            )}
           </a>
         </li>
         <li id="aboutControlFun">
