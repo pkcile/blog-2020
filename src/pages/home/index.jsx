@@ -1,14 +1,18 @@
-import { Fragment, useEffect } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import './index.less'
+import config from '../../util/config';
 export default function IndexPage() {
+  let [footDirect, setFootDirect] = useState(true)
   useEffect(function () {
     document.getElementById("aboutControlFun").addEventListener("click", function () {
       var aboutcontent = document.getElementById("about");
       var status = window.getComputedStyle(aboutcontent)?.visibility;
       if (status != "hidden") {
         aboutcontent.style.visibility = "hidden";
+        setFootDirect(true);
       } else {
         aboutcontent.style.visibility = "visible";
+        setFootDirect(false);
       }
     });
     //时间计算并显示
@@ -81,14 +85,14 @@ export default function IndexPage() {
           <ul class="contentmain listsabout">
             <li>
               <span>王朋坤</span>
-              <span><a href="https://blog.pkcile.cn/">个人博客</a></span>
+              <span><a href="https://blog.pkcile.cn/">&nbsp;个人博客</a></span>
             </li>
             <li>
-              <span>页面初次提交时间:</span>
+              <span>页面初次提交时间：</span>
               <span id="update-infor-start">2020-11-12</span>
             </li>
             <li>
-              <span>距今天:</span>
+              <span>距今天：</span>
               <span id="update-infor-last"></span>
             </li>
           </ul>
@@ -100,8 +104,12 @@ export default function IndexPage() {
       <ul class="footer">
         <li class="ICP">
           <a href="https://beian.miit.gov.cn/">
-            <span class="ICP-title">备案号:</span>
-            <span class="ICP-number">冀ICP备2020027680号-1</span>
+            {footDirect && (
+            <><span class="ICP-title">备案号：</span><span class="ICP-number">冀ICP备2020027680号-1</span></>
+            )}
+            {!footDirect && (
+            <><span class="ICP-title">构建：</span><span class="ICP-number">{config.buildversion}</span></>
+            )}
           </a>
         </li>
         <li id="aboutControlFun">

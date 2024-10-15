@@ -43,33 +43,49 @@ export default function Location() {
 		if (!navigator.geolocation) {
 			setLocationInfo('请检查浏览器是否支持定位');
 		} else {
-			navigator.geolocation.getCurrentPosition(function name(sucess) {
-				if (sucess?.coords) {
-					let lat = sucess.coords.latitude;
-					let lon = sucess.coords.longitude;
-					tiandituquery.get('', { type: 'geocode', postStr: JSON.stringify({ 'lon': lon, 'lat': lat, 'ver': 1 }), tk: 'c2eac0b552d848155c72b1d3f6aabf36' }).then(res => {
-						setSpinstatus('none')
-						// let obj = JSON.parse(res);
+			if (window.plus) {
+				plus.geolocation.getCurrentPosition(function (sucess) {
+					if (sucess?.coords) {
+						let lat = sucess.coords.latitude;
+						let lon = sucess.coords.longitude;
+						tiandituquery.get('', { type: 'geocode', postStr: JSON.stringify({ 'lon': lon, 'lat': lat, 'ver': 1 }), tk: 'c2eac0b552d848155c72b1d3f6aabf36' }).then(res => {
+							setSpinstatus('none')
+							// let obj = JSON.parse(res);
+	
+							setLocation(sucess.coords);
+							setLocationInfo(res?.result?.formatted_address + "," + res?.result?.addressComponent?.address);
+							setLocationI(lon.toFixed(4) + "," + lat.toFixed(4))
+						})
+					}
+				});
+			} else {
+				navigator.geolocation.getCurrentPosition(function name(sucess) {
+					if (sucess?.coords) {
+						let lat = sucess.coords.latitude;
+						let lon = sucess.coords.longitude;
+						tiandituquery.get('', { type: 'geocode', postStr: JSON.stringify({ 'lon': lon, 'lat': lat, 'ver': 1 }), tk: 'c2eac0b552d848155c72b1d3f6aabf36' }).then(res => {
+							setSpinstatus('none')
+							// let obj = JSON.parse(res);
+	
+							setLocation(sucess.coords);
+							setLocationInfo(res?.result?.formatted_address + "," + res?.result?.addressComponent?.address);
+							setLocationI(lon.toFixed(4) + "," + lat.toFixed(4))
+						})
+					}
+				}, function name(error) {
+					console.error(error);
+					setSpinstatus('none')
+					setLocationInfo('无法获取地理位置信息');
+					if (childRef.current) {
+						childRef.current.callShowAlert();
+						setNoticemessageobj({ message: '无法获取地理位置信息 ' + error?.message, type: "error" });
+					}
+				}, {
+					// enableHighAccuracy: true,
+					timeout: 8000,
+				});
+			}	
 
-						setLocation(sucess.coords);
-						setLocationInfo(res?.result?.formatted_address + "," + res?.result?.addressComponent?.address);
-						setLocationI(lon.toFixed(4) + "," + lat.toFixed(4))
-					})
-				}
-
-
-			}, function name(error) {
-				console.error(error);
-				setSpinstatus('none')
-				setLocationInfo('无法获取地理位置信息');
-				if (childRef.current) {
-					childRef.current.callShowAlert();
-					setNoticemessageobj({ message: '无法获取地理位置信息 ' + error?.message, type: "error" });
-				}
-			}, {
-				// enableHighAccuracy: false,
-				timeout: 8000,
-			});
 		}
 	}
 	useEffect(() => {
