@@ -43,7 +43,7 @@ const chinaTimeFormatter = new Intl.DateTimeFormat('zh-CN', {
 
 const chinaCurrDate = new Date();
 console.log('中国当地时间:', chinaTimeFormatter.format(chinaCurrDate));
-buildversion = chinaTimeFormatter.format(chinaCurrDate) + " | " +  osType.split("_")[0] + " " + osRelease.split(".")[0] + " , " + (totalMemory / (1024 * 1024 * 1024)).toFixed(1) + "GB"
+buildversion = chinaTimeFormatter.format(chinaCurrDate) + " " +  osType.split("_")[0] +" , " + (totalMemory / (1024 * 1024 * 1024)).toFixed(1) + "GB"
 const NODE_ENV = process.env.NODE_ENV || 'development';
 // 解析命令行参数
 module.exports = Object.keys(parseArgv).reduce(
