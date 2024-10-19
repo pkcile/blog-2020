@@ -87,45 +87,72 @@ module.exports = (webpackEnv, envConfig) => {
             }
           }
         },
+        // {
+        //   test: /\.css$/i,
+        //   use: [
+        //     // The `injectType`  option can be avoided because it is default behaviour
+        //     { loader: "style-loader", options: { injectType: "styleTag" } },
+        //     {
+        //       loader: "css-loader",
+        //       // Uncomment it if you want to use CSS modules
+        //       // options: { modules: true }
+        //       options: { modules: true }
+        //     },
+        //   ],
+        // },
+        {
+          test: /\.css$/i,
+          use: [
+            // The `injectType`  option can be avoided because it is default behaviour
+            { loader: "style-loader", options: { injectType: "styleTag" } },
+            {
+              loader: "css-loader",
+              // Uncomment it if you want to use CSS modules
+              options: { modules: true,}
+            },
+          ],
+        },
         {
           test: /\.less$/,
           include: path.resolve('src'),
           use: [
-            'style-loader',
-            'css-loader',
+            { loader: "style-loader", options: { injectType: "styleTag" } },
+            {
+              loader: "css-loader",
+              // Uncomment it if you want to use CSS modules
+              options: { modules: true }
+            },
             'less-loader'
           ]
         },
         /* 处理css */
-        {
-          test: /\.css$/,
-          include: path.resolve('src'),
-          use: [
-            isEnvProduction
-              ? {
-                  loader: MiniCssExtractPlugin.loader,
-                }
-              : {
-                  loader: 'style-loader',
-                },
-            // {
-            //   loader: 'style-loader',
-            // },
-            {
-              loader: 'css-loader',
-              options: {
-                sourceMap: isEnvProduction && shouldUseSourceMap,
-                importLoaders: 2,
-              },
-            },
-            // {
-            //   loader: 'postcss-loader',
-            //   options: {
-            //     sourceMap: isEnvProduction && shouldUseSourceMap,
-            //   },
-            // },
-          ],
-        },
+        // {
+        //   test: /\.css$/,
+        //   include: path.resolve('src'),
+        //   use: [
+        //     isEnvProduction
+        //       ? { loader: "style-loader", options: { injectType: "styleTag" } }
+        //       : { loader: "style-loader", options: { injectType: "styleTag" } },
+        //     // {
+        //     //   loader: 'style-loader',
+        //     // },
+        //     {
+        //       loader: 'css-loader',
+        //       // options: {
+        //       //   sourceMap: isEnvProduction && shouldUseSourceMap,
+        //       //   importLoaders: 2,
+        //       //   esModule: true
+        //       // },
+        //     },
+        //     // {
+        //     //   loader: 'postcss-loader',
+        //     //   options: {
+        //     //     sourceMap: isEnvProduction && shouldUseSourceMap,
+        //     //   },
+        //     // },
+        //   ],
+        // },
+
         // /* 处理less */
         // {
         //   test: /\.less$/,
@@ -396,7 +423,7 @@ module.exports = (webpackEnv, envConfig) => {
       //       : undefined
       //   )
       // ),
-      // 压缩css
+      // // 压缩css
       isEnvProduction &&
         new MiniCssExtractPlugin({
           filename: 'css/[name].[contenthash:8].css',

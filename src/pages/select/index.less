@@ -1,10 +1,10 @@
-.select-container {
+:global .select-container {
   position: relative;
   width: 200px;
   font-family: Arial, sans-serif;
 }
 
-.select-header {
+:global .select-header {
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -16,19 +16,19 @@
   transition: border-color 0.3s;
 }
 
-.select-header:hover {
+:global .select-header:hover {
   /* border-color: #888; */
 }
 
-.select-arrow {
+:global  .select-arrow {
   transition: transform 0.3s;
 }
 
-.select-arrow.open {
+:global .select-arrow.open {
   transform: rotate(180deg);
 }
 
-.select-options {
+:global .select-options {
   position: absolute;
   top: 100%;
   left: 0;
@@ -40,12 +40,12 @@
   max-height: 200px;
   overflow-y: auto;
 }
-.select-option {
+:global .select-option {
   padding: 10px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
-.select-option:hover {
+:global .select-option:hover {
   outline: none;
   padding: 9px;
   border: 1px solid #2196F3;
