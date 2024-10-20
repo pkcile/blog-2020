@@ -1,9 +1,26 @@
 import { useEffect, useState } from "react";
 import * as styles from "./index.less";
-import config from "../../util/config";
+import config from "../../util/config.js";
+import ConfirmDialog from "../forsure/index.jsx";
 export default function IndexPage() {
   let [footDirect, setFootDirect] = useState(false);
-  let [grayWhich, setgrayWhich] = useState(1);
+  let [grayWhich, setgrayWhich] = useState(2);
+  const [isDialogOpen, setDialogOpen] = useState(false);
+  const handleNavigation = () => {
+    setDialogOpen(true);
+  };
+
+  const handleConfirm = () => {
+    // 在这里添加跳转逻辑
+    //console.log('Confirmed navigation');
+    setDialogOpen(false);
+    window.open("https://beian.miit.gov.cn/")
+  };
+
+  const handleClose = () => {
+    setDialogOpen(false);
+  };
+
   let About = function () {
     useEffect(() => {
       //时间计算并显示
@@ -75,6 +92,12 @@ export default function IndexPage() {
 
   return (
     <div class="winform">
+      <ConfirmDialog
+        isOpen={isDialogOpen}
+        onClose={handleClose}
+        onConfirm={handleConfirm}
+        message="确定跳转到工信部网站吗？"
+      />
       <div class="main">
         <header class="htile"></header>
         <nav class="htopic">
@@ -105,7 +128,10 @@ export default function IndexPage() {
 
       <ul class="footer">
         <li class="ICP">
-          <a href="https://beian.miit.gov.cn/">
+          <a 
+            // href="https://beian.miit.gov.cn/"
+            onClick={handleNavigation}
+          >
             <>
               <span class="ICP-title">备案号：</span>
               <span class="ICP-number">冀ICP备2020027680号-1</span>

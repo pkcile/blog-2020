@@ -62,6 +62,9 @@ if (!window.Promise) {
 ```
 使用AsyncRoute后兼容性降低，最乐观，最好能兼容ie 10+(难，上限)
 
+开发环境下ie 10以上文字（更难)
+生产环境缺陷 ie9（工具 SCRIPT1010: 缺少标识符ie8）
+路由/#/now/location IE11及以下都不支持
 ##### md折叠用法
 <details>
 <summary>点击展开</summary>

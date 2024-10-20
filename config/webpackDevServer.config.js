@@ -6,7 +6,7 @@ module.exports = (proxy, envConfig, allowedHosts = []) => {
   const host =
     typeof envConfig.host === 'string' ? envConfig.host : 'localhost';
   const port = typeof envConfig.port === 'string' ? envConfig.port : 6767;
-  const open = envConfig.open || true;
+  const open = envConfig.open || false;
   return {
     open,
     hot: true,

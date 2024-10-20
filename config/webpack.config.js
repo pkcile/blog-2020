@@ -326,7 +326,8 @@ module.exports = (webpackEnv, envConfig) => {
               conditionals: true,
               dead_code: true,
               evaluate: true,
-              // pure_funcs: ['console.log', 'console.info'],
+              // 去除注释
+              pure_funcs: ['console.log', 'console.info'],
               drop_debugger: true,
             },
             mangle: {

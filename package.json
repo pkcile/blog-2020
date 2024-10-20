@@ -43,6 +43,7 @@
   },
   "dependencies": {
     "@preact/compat": "17.1.2",
+    "core-js": "^3.38.1",
     "history": "^5.3.0",
     "preact-async-route": "^2.2.1",
     "preact-iso": "^2.6.3",
@@ -60,7 +61,13 @@
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
-      "last 1 safari version"
+      "last 1 safari version",
+      ">0.001%",
+      "ie 6",
+      "ie 7",
+      "ie 8",
+      "ie 9",
+      "ie 10"
     ]
   },
   "engines": {
