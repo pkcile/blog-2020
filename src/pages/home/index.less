@@ -126,9 +126,11 @@
         .listsabout > li {
             padding: 2px 0 5px 5px;
             letter-spacing: 2px;
-            border-bottom: 1px solid #666966;
             margin: 2px 0;
             line-height: 25px;
+        }
+        .listsabout > li:not(:last-of-type) {
+            border-bottom: 1px solid #666966;
         }
     }
 }
@@ -140,9 +142,11 @@
 
 .archiveList {
     font-size: 1rem;
+    li:not(:last-of-type) {
+        border-bottom: 1px solid #666966;
+    }
     li {
         margin-bottom: 10px;
-        border-bottom: 1px solid #666966;
         height: 50px;
         line-height: 50px;
         & > div:nth-child(1) {
