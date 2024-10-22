@@ -49,3 +49,5 @@ jobs:
 
     - name: Upload
       run: coscmd upload -rs --skipmd5 dist/  / 
+    - name: UpdateIndexhtml
+      run: coscmd upload -r dist/index.html  /index.html 
