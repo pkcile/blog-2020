@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import * as styles from "./index.less";
 import config from "../../util/config.js";
 import ConfirmDialog from "../forsure/index.jsx";
+import arrowurl from "./arrow.png"
 export default function IndexPage() {
   let [footDirect, setFootDirect] = useState(false);
   let [grayWhich, setgrayWhich] = useState(2);
@@ -118,17 +119,53 @@ export default function IndexPage() {
             归档
           </div>
         </nav>
-        {grayWhich == 1 && <div class="contentmain">
-          {/* 再出发 */}
-        </div>
-        }
+        {grayWhich == 1 && <div class="contentmain">{/* 再出发 */}</div>}
+        {grayWhich == 2 && (
+          <div class="contentmain">
+            {/* 再出发2 */}
+            <ul class={styles.default.archiveList}>
+              <li>
+                <div >旧版主页-2020网络GIS作业</div>
+                <div
+                  onClick={() => {
+                    window.location.href = "/back/2024-06-17-update2020/index.html"
+                  }}
+                ><img src={arrowurl}></img></div>
+              </li>
+              {/* <li>
+                <div >旧版主页-2020网络GIS作业</div>
+                <div
+                  onClick={() => {
+                    window.location.href = "/back/2024-06-17-update2020/index.html"
+                  }}
+                ><img src={arrowurl}></img></div>
+              </li>
+              <li>
+                <div >github的使用</div>
+                <div
+                  onClick={() => {
+                    window.location.href = "/back/2024-06-17-update2020/index.html"
+                  }}
+                ><img src={arrowurl}></img></div>
+              </li>
+              <li>
+                <div >2024年静态网站在国内两种常见的托管方案</div>
+                <div
+                  onClick={() => {
+                    window.location.href = "/back/2024-06-17-update2020/index.html"
+                  }}
+                ><img src={arrowurl}></img></div>
+              </li> */}
+            </ul>
+          </div>
+        )}
 
         {footDirect && <About></About>}
       </div>
 
       <ul class="footer">
         <li class="ICP">
-          <a 
+          <a
             // href="https://beian.miit.gov.cn/"
             onClick={handleNavigation}
           >
