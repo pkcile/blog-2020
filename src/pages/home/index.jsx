@@ -3,9 +3,10 @@ import * as styles from "./index.less";
 import config from "../../util/config.js";
 import ConfirmDialog from "../forsure/index.jsx";
 import arrowurl from "./arrow.png"
+import modeurl from "./mode.png"
 export default function IndexPage() {
   let [footDirect, setFootDirect] = useState(false);
-  let [grayWhich, setgrayWhich] = useState(2);
+  let [grayWhich, setgrayWhich] = useState(1);
   const [isDialogOpen, setDialogOpen] = useState(false);
   const handleNavigation = () => {
     setDialogOpen(true);
@@ -102,7 +103,7 @@ export default function IndexPage() {
       <div class="main">
         <header class="htile"></header>
         <nav class="htopic">
-          <div
+        <div
             class={grayWhich != 1 ? styles.default.titleGrey : ""}
             onClick={() => {
               setgrayWhich(1);
@@ -119,7 +120,19 @@ export default function IndexPage() {
             归档
           </div>
         </nav>
-        {grayWhich == 1 && <div class="contentmain">{/* 再出发 */}</div>}
+        {grayWhich == 1 && <div class="contentmain">
+          <ul class={styles.default.recentList}>
+              <li>
+                {/* <div
+                  onClick={() => {
+                    window.location.href = "./back/2024-06-17-update2020/index.html"
+                  }}
+                ><img src={arrowurl}></img></div> */}
+                {/* <div>保持良好心态，调整状态</div> */}
+      
+              </li>
+          </ul>
+        </div>}
         {grayWhich == 2 && (
           <div class="contentmain">
             {/* 再出发2 */}

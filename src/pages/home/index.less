@@ -141,6 +141,7 @@
 }
 
 .archiveList {
+    padding: 3px;
     font-size: 1rem;
     li:not(:last-of-type) {
         border-bottom: 1px solid #666966;
@@ -168,6 +169,42 @@
             }
             cursor: pointer;
         }
+    }
+}
+
+.recentList {
+    padding: 3px;
+    font-size: 1rem;
+    li:not(:last-of-type) {
+        border-bottom: 1px solid #666966;
+    }
+    li {
+        margin-bottom: 10px;
+        height: 50px;
+        line-height: 50px;
+        & > div:nth-child(2) {
+            width: 80%;
+            overflow: hidden;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: inline-block;
+
+        }
+        // & > div:nth-child(1) {
+        //     // float: right;
+        //     position: relative;
+        //     top: -15px;
+        //     display: inline-block;
+        //     width: 50px;
+        //     height: 50px;
+        //     line-height: 50px;
+        //     img {
+        //         margin: 12px 0 0 12px;
+        //         height: 25px;
+        //     }
+        //     cursor: pointer;
+        // }
     }
 }
 
