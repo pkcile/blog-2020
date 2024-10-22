@@ -128,7 +128,7 @@ export default function IndexPage() {
                 <div >旧版主页-2020网络GIS作业</div>
                 <div
                   onClick={() => {
-                    window.location.href = "/back/2024-06-17-update2020/index.html"
+                    window.location.href = "./back/2024-06-17-update2020/index.html"
                   }}
                 ><img src={arrowurl}></img></div>
               </li>
