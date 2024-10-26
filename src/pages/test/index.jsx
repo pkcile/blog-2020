@@ -28,7 +28,7 @@ const MarkdownViewer = () => {
   const [markdown, setMarkdown] = useState('');
   const [toc, setToc] = useState([]); // 用于存储目录
   useEffect(() => {
-    fetch('/docs/2022-06-25-hexo入门文章.md') // 替换为你的实际路径
+    fetch('./back/docs/2022-06-25-hexo入门文章.md') // 替换为你的实际路径
     .then(response => response.text())
     .then(text => {
       setMarkdown(text);
@@ -66,7 +66,7 @@ const MarkdownViewer = () => {
             );
           },
           img({ src, alt, ...props }) {
-            return <img src={`./docs/${src}`} alt={alt} {...props} style={{ maxWidth: '100%', height: 'auto' }} />
+            return <img src={`./back/docs/${src}`} alt={alt} {...props} style={{ maxWidth: '100%', height: 'auto' }} />
           },
           h2({ node, children }) {
             return <h2 id={children.toString().toLowerCase().replace(/\s+/g, '-')}>{children}</h2>;

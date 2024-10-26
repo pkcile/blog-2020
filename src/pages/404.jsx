@@ -8,7 +8,7 @@ export default function NotFound2() {
 				fontSize: "1.5rem",
 				margin: "20px 10px 20px 10px",
 				fontWeight: "600",
-			}}>嗯404了，spa</h1>
+			}}>嗯404了</h1>
 			<h1
 				style={{
 					color: "white",

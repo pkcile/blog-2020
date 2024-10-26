@@ -10,7 +10,7 @@ const App = () => {
   const NotFound = lazy(() => import('./pages/404.jsx'));;
   // 获取初始路径
   function getInitialPath() {
-    return window.location.hash ? window.location.hash.slice(1) : window.location.pathname;
+    return window.location.hash ? window.location.hash.slice(1) : "";
   }
 
   // 导航函数
@@ -25,7 +25,10 @@ const App = () => {
 
   // 渲染组件
   const renderComponent = () => {
+    console.log(currentPath)
     switch (currentPath) {
+      case '':
+        return <Home />;
       case '/':
         return <Home />;
       case '/now/location':
@@ -33,6 +36,7 @@ const App = () => {
       case '/test':
         return <Test />;
       default:
+        console.log(currentPath)
         return <NotFound />;
     }
   };
