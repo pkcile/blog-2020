@@ -17,6 +17,7 @@
 - 5.依赖更新添加less-loader，开发环境下的依赖78.6 MB 11653个文件
 - 6.将后端添加到一个项目中方便开发，开发环境下的依赖146MB 16,371个文件(暂缓)
 #### 3.命令速记
+
 ```
 rimraf .\node_modules\
 git tag -a "v0.0.7" -m "使用preact改造该项目"
@@ -24,8 +25,10 @@ git push origin v0.0.7
 git push origin tag -d v0.0.7
 ```
 
+#### 版本兼容性问题
 ie 10、11 promise未识别
 ```
+<!-- “Promise”未定义 -->
 import Promise from 'babel-polyfill';
 // 解决promise 在ie中未定义的问题
 function Promise(executor) {
@@ -65,6 +68,13 @@ if (!window.Promise) {
 开发环境下ie 10以上文字（更难)
 生产环境缺陷 ie9（工具 SCRIPT1010: 缺少标识符ie8）
 路由/#/now/location IE11及以下都不支持
+##### 1.webpack兼容性支持
+![alt text](./public/back/docs/image.png)
+https://longhonour.github.io/2019/09/25/webpack-ie/
+
+##### 2.vue兼容性支持
+Vue 不支持 IE8 及以下版本，因为 Vue 使用了 IE8 无法模拟的 ECMAScript 5 特性。但它支持所有兼容 ECMAScript 5 的浏览器。所以IE 7 和 8 咱们就没办法兼容了，但是咱们可以判断浏览器版本后给用户一个友善的升级提醒啊
+
 ##### md折叠用法
 <details>
 <summary>点击展开</summary>

@@ -80,7 +80,7 @@ module.exports = (webpackEnv, envConfig) => {
               presets: [
                 ['@babel/preset-env', {
                   targets: {
-                    ie: '8'
+                    ie: '5'
                   }
                 }]
               ]
@@ -483,6 +483,6 @@ module.exports = (webpackEnv, envConfig) => {
       modules: ['node_modules', paths.appNodeModules],
     },
     stats: 'errors-only',
-    target: ['web', 'es5'],
+    target: ['web', 'es3'],
   };
 };

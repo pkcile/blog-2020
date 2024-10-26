@@ -1,43 +1,69 @@
 import "@/assets/reset.css";
-import IndexPage from "./pages/home/index.jsx";
-import { render } from "preact";
-import Router from "preact-router";
-import { createHashHistory } from "history";
-// import Location from './pages/location/index.jsx'
-import AsyncRoute from "preact-async-route";
-// import 'core-js/actual/promise';
-// import 'core-js/actual/set';
-// import 'core-js/actual/iterator';
-// import 'core-js/actual/array/from';
-// import 'core-js/actual/array/flat-map';
-// import 'core-js/actual/structured-clone';
-// import 'core-js/actual';
+import React, { render, useEffect, useState , Suspense, lazy, Fragment} from 'react';
+import Home from './pages/home/index.jsx'
+import "./util/polyfills.js"
 
-window.history.replaceState = window.history.replaceState || function () {};
-function Counter() {
-  // return (
-  // 	<div>
-  // 		213123
-  // 	</div>
-  // )
+const App = () => {
+  const [currentPath, setCurrentPath] = useState(getInitialPath());
+  const Location = lazy(() => import('./pages/location/index.jsx')); // 动态导入组件
+  const Test = lazy(() => import('./pages/test/index.jsx')); // 动态导入组件
+  const NotFound = lazy(() => import('./pages/404.jsx'));;
+  // 获取初始路径
+  function getInitialPath() {
+    return window.location.hash ? window.location.hash.slice(1) : window.location.pathname;
+  }
+
+  // 导航函数
+  const navigate = (path) => {
+    if (window.location.hash) {
+      window.location.hash = path;
+    } else {
+      window.history.pushState({}, '', path);
+      setCurrentPath(path);
+    }
+  };
+
+  // 渲染组件
+  const renderComponent = () => {
+    switch (currentPath) {
+      case '/':
+        return <Home />;
+      case '/now/location':
+        return <Location />;
+      case '/test':
+        return <Test />;
+      default:
+        return <NotFound />;
+    }
+  };
+
+  useEffect(() => {
+    const onPopState = () => {
+      setCurrentPath(window.location.pathname);
+    };
+
+    const onHashChange = () => {
+      setCurrentPath(window.location.hash.slice(1));
+    };
+
+    window.addEventListener('popstate', onPopState);
+    window.addEventListener('hashchange', onHashChange);
+
+    // 清理事件监听器
+    return () => {
+      window.removeEventListener('popstate', onPopState);
+      window.removeEventListener('hashchange', onHashChange);
+    };
+  }, []);
+
   return (
-    <Router history={createHashHistory()}>
-      <IndexPage path="/" />
-      <AsyncRoute
-        path="/now/location"
-        getComponent={() =>
-          import("./pages/location/index.jsx").then((module) => module.default)
-        }
-      />
-      <Location path="/now/location" />
-      {/* 
-		<AsyncRoute
-			default
-			path="/404"
-			getComponent={() => import('./pages/404.jsx').then(module => module.default)}
-		/> */}
-    </Router>
+    <Fragment>
+      {/* fallback={<div>Loading...</div>} */}
+      <Suspense >
+        {renderComponent()}
+      </Suspense>
+    </Fragment>
   );
-}
+};
 
-render(<Counter />, document.getElementById("root"));
+render(<App />, document.getElementById("root"));
