@@ -2,21 +2,25 @@ import { useEffect, useState } from "react";
 import * as styles from "./index.less";
 import config from "../../util/config.js";
 import ConfirmDialog from "../forsure/index.jsx";
-import arrowurl from "./arrow.png"
-import modeurl from "./mode.png"
+import arrowurl from "./arrow.png";
+import Showinfo from "../showinfo/index.jsx";
 export default function IndexPage() {
   let [footDirect, setFootDirect] = useState(false);
-  let [grayWhich, setgrayWhich] = useState(1);
+  let [grayWhich, setgrayWhich] = useState(2);
   const [isDialogOpen, setDialogOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  let [mapstatus, setMapstatus] = useState(false);
+  let [messageUrl, setMessageUrl] = useState('');
+  let [itemList, setItemList] = useState()
   const handleNavigation = () => {
     setDialogOpen(true);
+    setMessage("确定跳转到工信部网站吗？");
+    setMessageUrl("https://beian.miit.gov.cn/")
   };
 
   const handleConfirm = () => {
-    // 在这里添加跳转逻辑
-    //console.log('Confirmed navigation');
     setDialogOpen(false);
-    window.open("https://beian.miit.gov.cn/")
+    window.open(messageUrl);
   };
 
   const handleClose = () => {
@@ -90,6 +94,116 @@ export default function IndexPage() {
       </ul>
     );
   };
+
+  let AchiveList = function ({ visibility, datalists }) {
+    let DateList = ArchiveDatalist.map((item) => {
+      if(item.jumptIf) {
+        return (
+          <li
+            onClick={() => {
+              setDialogOpen(true);
+              setMessage("确定跳转到" + item.title + (item.remind ? ("," + item.remind) : ""));
+              setMessageUrl(item.jumptUrl)
+            }}
+          >
+            <div>{item.title}</div>
+            <div>
+              <img src={arrowurl} width={"15px"}></img>
+            </div>
+            <div>{item.createDate}</div>
+          </li>
+        );
+      } else {
+        if(item.content) {
+
+        } else {
+          return (
+            <li
+              onClick={() => {
+                window.location.href = item.jumptUrl;
+              }}
+            >
+              <div>{item.title}</div>
+              <div>
+                <img src={arrowurl} width={"20px"}></img>
+              </div>
+              <div>{item.createDate}</div>
+            </li>
+          );
+        }
+      }
+ 
+    });
+
+    useEffect(() => {}, []);
+    return (
+      <ul
+        class={` ${styles.default.archiveList} ${
+          visibility == "hidden" ? styles.default.visibilityHidden : ""
+        }`}
+      >
+        {DateList}
+      </ul>
+    );
+  };
+
+  let RecentList = function ({ visibility, datalists=[] }) {
+    let DateList = datalists.map((item, key) => {
+      if(item.jumptIf) {
+        return (
+          <li
+            onClick={() => {
+              setDialogOpen(true);
+              setMessage("确定跳转到" + item.title + (item.remind ? ("," + item.remind) : ""))
+              setMessageUrl(item.jumptUrl)
+            }}
+          >
+            <div>{key + 1}、</div>
+            <div>{item.title}</div>
+          </li>
+        );
+      } else {
+        if(item.content) {
+          return (
+            <li
+              onClick={() => {
+                setMapstatus(true)
+                console.log(item)
+                setItemList(item)
+              }}
+            >
+              <div>{key + 1}、</div>
+              <div>{item.title}</div>
+            </li>
+          );
+        } else {
+          return (
+            <li
+              onClick={() => {
+                window.location.href = item.jumptUrl;
+              }}
+            >
+              <div>{key + 1}、</div>
+              <div>{item.title}</div>
+            </li>
+          );
+        }
+      }
+ 
+    });
+
+    useEffect(() => {}, []);
+    return (
+      <ul
+        class={` ${styles.default.recentList} ${
+          visibility == "hidden" ? styles.default.visibilityHidden : ""
+        }`}
+      >
+        {DateList}
+      </ul>
+    );
+  };
+
   useEffect(function () {}, []);
 
   return (
@@ -98,12 +212,13 @@ export default function IndexPage() {
         isOpen={isDialogOpen}
         onClose={handleClose}
         onConfirm={handleConfirm}
-        message="确定跳转到工信部网站吗？"
+        message={message}
       />
+      {mapstatus && <Showinfo setMapstatus={setMapstatus} itemList={itemList}></Showinfo>}
       <div class="main">
         <header class="htile"></header>
         <nav class="htopic">
-        <div
+          <div
             class={grayWhich != 1 ? styles.default.titleGrey : ""}
             onClick={() => {
               setgrayWhich(1);
@@ -120,59 +235,13 @@ export default function IndexPage() {
             归档
           </div>
         </nav>
-        {grayWhich == 1 && <div class="contentmain">
-          <ul class={styles.default.recentList}>
-              <li>
-                {/* <div
-                  onClick={() => {
-                    window.location.href = "./back/2024-06-17-update2020/index.html"
-                  }}
-                ><img src={arrowurl}></img></div> */}
-                {/* <div>保持良好心态，调整状态</div> */}
-      
-              </li>
-          </ul>
-        </div>}
-        {grayWhich == 2 && (
           <div class="contentmain">
-            {/* 再出发2 */}
-            <ul class={styles.default.archiveList}>
-              <li>
-                <div >旧版主页-2020网络GIS作业</div>
-                <div
-                  onClick={() => {
-                    window.location.href = "./back/2024-06-17-update2020/index.html"
-                  }}
-                ><img src={arrowurl}></img></div>
-              </li>
-              {/* <li>
-                <div >旧版主页-2020网络GIS作业</div>
-                <div
-                  onClick={() => {
-                    window.location.href = "/back/2024-06-17-update2020/index.html"
-                  }}
-                ><img src={arrowurl}></img></div>
-              </li>
-              <li>
-                <div >github的使用</div>
-                <div
-                  onClick={() => {
-                    window.location.href = "/back/2024-06-17-update2020/index.html"
-                  }}
-                ><img src={arrowurl}></img></div>
-              </li>
-              <li>
-                <div >2024年静态网站在国内两种常见的托管方案</div>
-                <div
-                  onClick={() => {
-                    window.location.href = "/back/2024-06-17-update2020/index.html"
-                  }}
-                ><img src={arrowurl}></img></div>
-              </li> */}
-            </ul>
+            <RecentList 
+              visibility={`${ grayWhich == "2" ? "hidden" : ""}`}
+              datalists={RecentDatalist}
+            ></RecentList> 
+            <AchiveList visibility={`${ grayWhich == "1" ? "hidden" : ""}`}></AchiveList>
           </div>
-        )}
-
         {footDirect && <About></About>}
       </div>
 

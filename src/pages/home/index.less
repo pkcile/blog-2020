@@ -1,3 +1,32 @@
+/* 隐藏垂直滚动条箭头 */
+:global *::-webkit-scrollbar-button:vertical {
+    display: none;
+}
+
+/* 隐藏水平滚动条箭头 */
+:global *::-webkit-scrollbar-button:horizontal {
+    display: none;
+}
+:global *::-webkit-scrollbar-track {
+    border: 1px dotted #F5F5F5;
+    background-color: black;
+}
+
+:global *::-webkit-scrollbar {
+    width: 10px;
+    background-color: #000;
+}
+
+:global *::-webkit-scrollbar-thumb {
+    background-color: #F5F5F5;
+    cursor: pointer;
+
+}
+:global *::scrollbar-thumb {
+    background-color: #F5F5F5;
+    cursor: pointer;
+}
+
 :global .winform {
     width: 100%;
     height: 100%;
@@ -16,7 +45,7 @@
             letter-spacing: 1px;
             height: 30px;
             line-height: 30px;
-            font-size: 0.9rem;
+            font-size: 1rem;
         
         }
         
@@ -47,7 +76,13 @@
 
         .contentmain {
             height: calc(100% - 100px);
-            overflow: auto;
+            position: relative;
+            > ul {
+                overflow: auto;
+                position: absolute;
+                width: 99%;
+                height: 99%;   
+            }
         }
     }
        
@@ -66,7 +101,7 @@
     .footer {
         height: 50px;
         background-color: #212021;
-        font-size: 0.9rem;
+        font-size: 1rem;
         color: #666966;
         span {
             color: #666966;
@@ -102,35 +137,22 @@
         background-color: #000;
         width: 100%;
         height: calc(100% - 50px);
-        // visibility: hidden;
-    
-        .contentmain::-webkit-scrollbar-track {
-            border: 1px solid #F5F5F5;
-            background-color: black;
-        }
-        
-        .contentmain::-webkit-scrollbar {
-            width: 10px;
-            background-color: #000;
-        }
-        
-        .contentmain::-webkit-scrollbar-thumb {
-            background-color: #F5F5F5;
-        
-        }
-        
         .listsabout {
             font-size: 1rem;
         }
         
         .listsabout > li {
+            color: #ddd;
             padding: 2px 0 5px 5px;
             letter-spacing: 2px;
             margin: 2px 0;
             line-height: 25px;
         }
-        .listsabout > li:not(:last-of-type) {
-            border-bottom: 1px solid #666966;
+        // .listsabout > li:not(:last-of-type) {
+        //     border-bottom: 1px dotted #666966;
+        // }
+        .listsabout > li {
+            border-bottom: 1px dotted #666966;
         }
     }
 }
@@ -143,31 +165,52 @@
 .archiveList {
     padding: 3px;
     font-size: 1rem;
-    li:not(:last-of-type) {
-        border-bottom: 1px solid #666966;
+    // li:not(:last-of-type) {
+    //     border-bottom: 1px dotted #666966;
+    // }
+    li {
+        border-bottom: 1px dotted #666966;
     }
     li {
         margin-bottom: 10px;
         height: 50px;
         line-height: 50px;
+        img {
+            margin: 15px 0 0 15px;
+            height: 20px;
+        }
+        & > div {
+            color: #ddd;
+            cursor: pointer;
+        }
         & > div:nth-child(1) {
-            width: 80%;
+            width: calc(100% - 130px);
             overflow: hidden;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             display: inline-block;
+            // color: #666966;
 
+        }
+        & > div:nth-child(3) {
+            float: right;
+            width: 80px;
+            height: 50px;
+            font-size: 0.8rem;
+            text-align: right;
+            // color: #666966;
         }
         & > div:nth-child(2) {
             float: right;
             width: 50px;
             height: 50px;
             img {
-                margin: 15px 0 0 15px;
-                height: 20px;
+                margin: 17px 0 0 15px;
+                height: 15px;
+                
             }
-            cursor: pointer;
+            
         }
     }
 }
@@ -175,20 +218,34 @@
 .recentList {
     padding: 3px;
     font-size: 1rem;
+    // li:not(:last-of-type) {
+    //     border-bottom: 1px dotted #666966;
+    // }
     li:not(:last-of-type) {
-        border-bottom: 1px solid #666966;
+        border-bottom: 1px dotted #666966;
     }
     li {
         margin-bottom: 10px;
         height: 50px;
         line-height: 50px;
+        & > div {
+            color: #ddd;
+        }
+        & > div:nth-child(1) {
+            display: inline-block;
+            width: 30px;
+            overflow: hidden;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
         & > div:nth-child(2) {
+            display: inline-block;
             width: 80%;
             overflow: hidden;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            display: inline-block;
 
         }
         // & > div:nth-child(1) {
@@ -206,6 +263,9 @@
         //     cursor: pointer;
         // }
     }
+}
+.visibilityHidden {
+    visibility: hidden;
 }
 
 
