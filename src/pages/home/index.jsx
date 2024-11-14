@@ -111,6 +111,7 @@ export default function IndexPage() {
               <img src={arrowurl} width={"15px"}></img>
             </div>
             <div>{item.createDate}</div>
+            <a href={item.jumptUrl}></a>
           </li>
         );
       } else {
@@ -223,6 +224,7 @@ export default function IndexPage() {
             onClick={() => {
               setgrayWhich(1);
             }}
+            
           >
             最近的内容
           </div>

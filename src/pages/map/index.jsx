@@ -5,9 +5,9 @@ const Mapleaflet = ({setMapstatus, location }) => {
 
   function loadLeaflet(locationDevice) {
     let zoom = 4;
-    let longitude = locationDevice?.longitude;
-    let latitude = locationDevice?.latitude;
-    if(locationDevice?.accuracy > 10000) {
+    let longitude = locationDevice.longitude;
+    let latitude = locationDevice.latitude;
+    if(locationDevice.accuracy > 10000) {
       zoom = 4;
     } else {
       zoom = 17
@@ -42,7 +42,7 @@ const Mapleaflet = ({setMapstatus, location }) => {
       stroke: true,
       weight: 2,
       fillOpacity: 0.1,
-      radius: locationDevice?.accuracy
+      radius: locationDevice.accuracy
     }).addTo(map);
     var textLabel = L.divIcon({
       className: 'text-label',
@@ -50,7 +50,7 @@ const Mapleaflet = ({setMapstatus, location }) => {
   });
   var marker = L.marker([latitude - 0.0002, longitude + 0.000] ).addTo(map);
   marker.setOpacity(0) 
-  circle2.bindPopup(`你在${locationDevice?.accuracy}米范围内` );
+  circle2.bindPopup(`你在${locationDevice.accuracy}米范围内` );
   // marker.bindTooltip("圆形描述", {permanent: true, direction: 'right', });
   // L.marker([latitude, longitude], {icon: textLabel}).addTo(map);
 

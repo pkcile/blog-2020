@@ -24,10 +24,10 @@ const Notification = React.forwardRef(({ noticemessageobj={
 
   return (
     <div className="notification" style={{
-      backgroundColor: noticemessageobj?.type === 'success' ? '#52c41a' : '#f5222d',
-      color: noticemessageobj?.type === 'success' ? '#fff' : '#fff',
+      backgroundColor: noticemessageobj.type === 'success' ? '#52c41a' : '#f5222d',
+      color: noticemessageobj.type === 'success' ? '#fff' : '#fff',
     }}>
-      <span>{noticemessageobj?.message}</span>
+      <span>{noticemessageobj.message}</span>
       <button onClick={() => setIsVisible(false)}>×</button>
     </div>
   );

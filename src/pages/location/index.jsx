@@ -45,7 +45,7 @@ export default function Location() {
 		} else {
 			if (window.plus) {
 				plus.geolocation.getCurrentPosition(function (sucess) {
-					if (sucess?.coords) {
+					if (sucess && sucess.coords) {
 						let lat = sucess.coords.latitude;
 						let lon = sucess.coords.longitude;
 						tiandituquery.get('', { type: 'geocode', postStr: JSON.stringify({ 'lon': lon, 'lat': lat, 'ver': 1 }), tk: 'c2eac0b552d848155c72b1d3f6aabf36' }).then(res => {
@@ -53,23 +53,25 @@ export default function Location() {
 							// let obj = JSON.parse(res);
 	
 							setLocation(sucess.coords);
-							setLocationInfo(res?.result?.formatted_address + "," + res?.result?.addressComponent?.address);
+							setLocationInfo(res.result.formatted_address + "," + res.result.addressComponent.address);
 							setLocationI(lon.toFixed(4) + "," + lat.toFixed(4))
 						})
 					}
 				});
 			} else {
 				navigator.geolocation.getCurrentPosition(function name(sucess) {
-					if (sucess?.coords) {
+					//alert(JSON.stringify(sucess))
+					if (sucess && sucess.coords) {
 						let lat = sucess.coords.latitude;
 						let lon = sucess.coords.longitude;
+						setLocation(sucess.coords);
+						setLocationI(lon.toFixed(4) + "," + lat.toFixed(4))
+						setSpinstatus('none')
 						tiandituquery.get('', { type: 'geocode', postStr: JSON.stringify({ 'lon': lon, 'lat': lat, 'ver': 1 }), tk: 'c2eac0b552d848155c72b1d3f6aabf36' }).then(res => {
-							setSpinstatus('none')
-							// let obj = JSON.parse(res);
-	
-							setLocation(sucess.coords);
-							setLocationInfo(res?.result?.formatted_address + "," + res?.result?.addressComponent?.address);
-							setLocationI(lon.toFixed(4) + "," + lat.toFixed(4))
+							// let obj = JSON.parse(res);	
+							setLocationInfo(res.result.formatted_address + "," + res.result.addressComponent.address);
+						}).catch((error) => {
+							setNoticemessageobj({ message: '地址获取接口失败 ' + error.message, type: "error" });
 						})
 					}
 				}, function name(error) {
@@ -78,7 +80,7 @@ export default function Location() {
 					setLocationInfo('无法获取地理位置信息');
 					if (childRef.current) {
 						childRef.current.callShowAlert();
-						setNoticemessageobj({ message: '无法获取地理位置信息 ' + error?.message, type: "error" });
+						setNoticemessageobj({ message: '无法获取地理位置信息 ' + error.message, type: "error" });
 					}
 				}, {
 					// enableHighAccuracy: true,
@@ -220,11 +222,11 @@ export default function Location() {
 
 				<div className="container-footer">
 					{
-						location?.accuracy == 0.001 && <button class="update-btn" onClick={updatelocation}>更新位置</button>
+						location.accuracy == 0.001 && <button class="update-btn" onClick={updatelocation}>更新位置</button>
 					}
 					{
-						location?.accuracy != 0.001 && <button class="commit-btn" onClick={function name(params) {
-							if (location && location?.latitude) {
+						location.accuracy != 0.001 && <button class="commit-btn" onClick={function name(params) {
+							if (location && location.latitude) {
 								setSpinstatus('flex')
 								// 更新
 								api.get('/add',
@@ -233,9 +235,9 @@ export default function Location() {
 										comment,
 										theme,
 										gpuInfor,
-										latitude: location?.latitude,
-										longitude: location?.longitude,
-										accuracy: location?.accuracy,
+										latitude: location.latitude,
+										longitude: location.longitude,
+										accuracy: location.accuracy,
 										fingerDetail: fingerDetail,
 										username: username
 									}).then(res => {

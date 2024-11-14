@@ -43,9 +43,7 @@
   },
   "dependencies": {
     "@preact/compat": "17.1.2",
-    "preact-iso": "^2.6.3",
-    "react-copy-to-clipboard": "^5.1.0",
-    "react-markdown": "^8.0.7"
+    "preact-iso": "^2.6.3"
   },
   "browserslist": {
     "production": [

@@ -6,7 +6,6 @@ import "./util/polyfills.js"
 const App = () => {
   const [currentPath, setCurrentPath] = useState(getInitialPath());
   const Location = lazy(() => import('./pages/location/index.jsx')); // 动态导入组件
-  const Test = lazy(() => import('./pages/test/index.jsx')); // 动态导入组件
   const NotFound = lazy(() => import('./pages/404.jsx'));;
   // 获取初始路径
   function getInitialPath() {
@@ -33,8 +32,6 @@ const App = () => {
         return <Home />;
       case '/now/location':
         return <Location />;
-      case '/test':
-        return <Test />;
       default:
         console.log(currentPath)
         return <NotFound />;

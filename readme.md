@@ -1,3 +1,4 @@
+[![Upload to COS](https://github.com/pkcile/blog-2020/actions/workflows/tencent-cos.yml/badge.svg)](https://github.com/pkcile/blog-2020/actions/workflows/tencent-cos.yml)
 ### 本地开发环境说明
 #### 1.环境说明
 开发工具依赖在精简中
@@ -20,6 +21,7 @@
 
 ```
 rimraf .\node_modules\
+git tag -d v0.1.0
 git tag -a "v0.0.7" -m "使用preact改造该项目"
 git push origin v0.0.7
 git push origin tag -d v0.0.7

@@ -217,7 +217,7 @@
     <script>
         function aboutControlFun() {
             var aboutcontent = document.getElementById("about");
-            var status = window.getComputedStyle(aboutcontent)?.visibility;
+            var status = window.getComputedStyle(aboutcontent).visibility;
             if (status != "hidden") {
                 aboutcontent.style.visibility = "hidden";
             } else {
