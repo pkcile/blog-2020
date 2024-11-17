@@ -31,7 +31,7 @@ export default function IndexPage() {
   };
 
   let About = function () {
-    let [aboutbuildinfor, setAboutbuildinfo] = useState("");
+    let [aboutbuildinfor, setAboutbuildinfo] = useState("hidden");
     useEffect(() => {
       //时间计算并显示
       (function display() {

@@ -30,7 +30,7 @@ var ArchiveDatalist = [
       jumptUrl: "./back/docs/2020-12-07-bat脚本的简单使用-1.html",
       content: "",
       createDate: "2020-12-07",
-    }, 
+    },
     {
       title: "github的使用",
       remind: "该主页仅支持桌面端",
@@ -46,6 +46,14 @@ var ArchiveDatalist = [
       jumptUrl: "./back/2024-06-17-update2020/teach_windows.html",
       content: "",
       createDate: "2020-11-28",
+    }, 
+    {
+      title: "jquery的初步使用总结",
+      remind: "",
+      jumptIf: true,
+      jumptUrl: "./back/docs/2021-11-26-jquery的初步使用总结.html",
+      content: "",
+      createDate: "2020-11-26",
     }, 
     {
       title: "旧版主页",

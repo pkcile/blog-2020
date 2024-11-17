@@ -28,6 +28,7 @@ git push origin tag -d v0.0.7
 ```
 
 #### 版本兼容性问题
+目前主页的兼容性：>=IE9，chorme >=30，火狐（未测试），x5（未测试）
 ie 10、11 promise未识别
 ```
 <!-- “Promise”未定义 -->
