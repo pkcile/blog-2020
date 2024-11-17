@@ -1,5 +1,29 @@
 var ArchiveDatalist = [
     {
+      title: "查看文件占用和解决的两种方式",
+      remind: "",
+      jumptIf: true,
+      jumptUrl: "./back/docs/2024-11-17-windows10电脑查看文件占用和解决的两种方式.html",
+      content: "",
+      createDate: "2024-11-17",
+    }, 
+    {
+      title: "U盘号由E盘改为H盘",
+      remind: "",
+      jumptIf: true,
+      jumptUrl: "./back/docs/2024-11-17-windows10电脑修改插入的U盘号由E盘改为H盘.html",
+      content: "",
+      createDate: "2024-11-17",
+    }, 
+    {
+      title: "显示“此电脑”桌面图标",
+      remind: "",
+      jumptIf: true,
+      jumptUrl: "./back/docs/2024-11-17-windows10电脑显示“此电脑”桌面图标.html",
+      content: "",
+      createDate: "2024-11-17",
+    }, 
+    {
       title: "bat脚本的使用（一）",
       remind: "",
       jumptIf: true,
