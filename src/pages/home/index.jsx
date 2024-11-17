@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import * as styles from "./index.less";
-import config from "../../util/config.js";
+import configInfor from "../../util/config.js";
 import ConfirmDialog from "../forsure/index.jsx";
 import arrowurl from "./arrow.png";
+import aboutinformation from "./aboutinformation.png";
+import backurl from "./back.png";
 import Showinfo from "../showinfo/index.jsx";
 export default function IndexPage() {
   let [footDirect, setFootDirect] = useState(false);
@@ -12,6 +14,7 @@ export default function IndexPage() {
   let [mapstatus, setMapstatus] = useState(false);
   let [messageUrl, setMessageUrl] = useState('');
   let [itemList, setItemList] = useState()
+  console.log(configInfor)
   const handleNavigation = () => {
     setDialogOpen(true);
     setMessage("确定跳转到工信部网站吗？");
@@ -28,6 +31,7 @@ export default function IndexPage() {
   };
 
   let About = function () {
+    let [aboutbuildinfor, setAboutbuildinfo] = useState("");
     useEffect(() => {
       //时间计算并显示
       (function display() {
@@ -69,6 +73,11 @@ export default function IndexPage() {
     }, []);
     return (
       <ul id="about" class="main secondpage">
+        <AboutBuild 
+            visibility={aboutbuildinfor}
+            configInfor={configInfor}
+            setVisibility={setAboutbuildinfo}
+        ></AboutBuild>
         <header class="htile"></header>
         <nav class="htopic">
           <div>关于</div>
@@ -77,18 +86,51 @@ export default function IndexPage() {
 
         <ul class="contentmain listsabout">
           <li>
-            <span>距今天：</span>
-            <span id="update-infor-last"></span>
-          </li>
-          <li>
             <span>首次提交：</span>
             <span id="update-infor-start">2020年11月12日</span>
           </li>
           <li>
-            <span>构建信息：</span>
-            <span>
-              <span class="ICP-number">{config.buildversion}</span>
-            </span>
+            <span>距今天有：</span>
+            <span id="update-infor-last"></span>
+          </li>
+          <li style={{cursor: "pointer"}} onClick={() => {
+            setAboutbuildinfo("visibility")
+          }}>
+            <span>构建信息 </span>
+            <img src={aboutinformation} height={18} width={18} style={{position: "relative", top: "4px", left: "5px", borderBottom: "1px solid #fff"}}></img>
+          </li>
+        </ul>
+      </ul>
+    );
+  };
+
+  let AboutBuild = function ({ visibility, setVisibility, configInfor}) {
+    useEffect(() => {
+    }, []);
+    return (
+      <ul class={`main secondpage ${
+          visibility == "hidden" ? styles.default.visibilityHidden : ""
+        }`}>
+        <header class="htile"></header>
+        <nav class="htopic2">
+          <div onClick={()=> {
+            setVisibility("hidden")
+          }}><img src={backurl} style={{position: "relative", top: "5px"}}></img></div>
+          <div>构建信息</div>
+        </nav>
+
+        <ul class="contentmain listsabout">
+          <li>
+            <span>构建时间：</span>
+            <span >{configInfor.buildversion}</span>
+          </li>
+          <li>
+            <span>构建机器：</span>
+            <span >{configInfor.buildInfo}</span>
+          </li>
+          <li>
+            <span>浏览器版本：</span>
+            <span >{navigator.userAgent.toLowerCase()}</span>
           </li>
         </ul>
       </ul>

@@ -74,6 +74,31 @@
             }
         } 
 
+        .htopic2 {
+            height: 70px;
+            line-height: 40px;
+            font-weight: 500;
+            & div {
+                letter-spacing: 2px;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+            
+            &  div:nth-of-type(1) {
+                float: left;
+                width: 50px;
+                font-size: 1.9rem;
+            }
+            
+            &  div:nth-of-type(2) {
+                float: left;
+                // width: 90px;
+                font-size: 1.9rem;
+                text-align: center;
+            }
+        } 
+
         .contentmain {
             height: calc(100% - 100px);
             position: relative;
