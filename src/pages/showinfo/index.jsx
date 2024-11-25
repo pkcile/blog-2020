@@ -14,7 +14,7 @@ const Showinfo = ({ setMapstatus, itemList={title: "标题", content: "内容", 
         zIndex: 1,
         background: "#000",
       }}
-      id="mapleaflet"
+      // id="mapleaflet"
     >
 
       <div

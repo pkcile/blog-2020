@@ -68,6 +68,7 @@ var ArchiveDatalist = [
 var RecentDatalist = [
   {
     title: "位置打卡",
+    titleShort: "位置打卡",
     remind: "",
     jumptIf: true,
     jumptUrl: "./#/now/location",
@@ -76,6 +77,7 @@ var RecentDatalist = [
   },
   {
     title: "保持良好心态，调整状态",
+    titleShort: "调整状态",
     remind: "",
     jumptIf: false,
     jumptUrl: "javascript:;",

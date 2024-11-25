@@ -5,7 +5,7 @@ import ConfirmDialog from "../forsure/index.jsx";
 import arrowurl from "./arrow.png";
 import aboutinformation from "./aboutinformation.png";
 import backurl from "./back.png";
-import Showinfo from "../showinfo/index.jsx";
+import Showinfo from "../showinfo/newindex.jsx";
 export default function IndexPage() {
   let [footDirect, setFootDirect] = useState(false);
   let [grayWhich, setgrayWhich] = useState(2);
@@ -32,6 +32,7 @@ export default function IndexPage() {
 
   let About = function () {
     let [aboutbuildinfor, setAboutbuildinfo] = useState("hidden");
+    let [clientinfor, setClientinfor] = useState("hidden");
     useEffect(() => {
       //时间计算并显示
       (function display() {
@@ -78,6 +79,11 @@ export default function IndexPage() {
             configInfor={configInfor}
             setVisibility={setAboutbuildinfo}
         ></AboutBuild>
+        <ClientInfo 
+            visibility={clientinfor}
+            configInfor={configInfor}
+            setVisibility={setClientinfor}
+        ></ClientInfo>
         <header class="htile"></header>
         <nav class="htopic">
           <div>关于</div>
@@ -96,8 +102,14 @@ export default function IndexPage() {
           <li style={{cursor: "pointer"}} onClick={() => {
             setAboutbuildinfo("visibility")
           }}>
-            <span>构建信息 </span>
-            <img src={aboutinformation} height={18} width={18} style={{position: "relative", top: "4px", left: "5px", borderBottom: "1px solid #fff"}}></img>
+            <span>构建信息：</span>
+            <img src={aboutinformation} height={18} width={18} style={{position: "relative", top: "4px", left: "0px", borderBottom: "1px solid #fff"}}></img>
+          </li>
+          <li style={{cursor: "pointer"}} onClick={() => {
+            setClientinfor("visibility")
+          }}>
+            <span>客户端信息：</span>
+            <span style={{borderBottom: "1px solid #000"}}>当前设备状态</span>
           </li>
         </ul>
       </ul>
@@ -108,7 +120,7 @@ export default function IndexPage() {
     useEffect(() => {
     }, []);
     return (
-      <ul class={`main secondpage ${
+      <ul class={`main thirdpage ${
           visibility == "hidden" ? styles.default.visibilityHidden : ""
         }`}>
         <header class="htile"></header>
@@ -119,19 +131,71 @@ export default function IndexPage() {
           <div>构建信息</div>
         </nav>
 
-        <ul class="contentmain listsabout">
+        <ul class="listsabout">
           <li>
             <span>构建时间：</span>
-            <span >{configInfor.buildversion}</span>
+            <span>{configInfor.buildversion}</span>
           </li>
           <li>
             <span>构建机器：</span>
-            <span >{configInfor.buildInfo}</span>
+            <span>{configInfor.buildInfo}</span>
+          </li>
+          {/* <li>
+            <span>标签版本：</span>
+            <span>{configInfor.buildInfo}</span>
+          </li> */}
+          {/* <li>
+            <span>提交用户：</span>
+            <span>{configInfor.buildInfo}</span>
+          </li> */}
+          {/* <li>
+            <span>提交统计：</span>
+            <span>{configInfor.buildInfo}</span>
+          </li> */}
+          {/* <li>
+            <span>Node版本：</span>
+            <span></span>
+          </li> */}
+        </ul>
+      </ul>
+    );
+  };
+
+  
+  let ClientInfo = function ({ visibility, setVisibility, configInfor}) {
+    let [gpuInfor, setGpuInfor] = useState("")
+    useEffect(() => {
+      const canvas = document.createElement('canvas');
+      const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+      if (gl) {
+        const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+        if (debugInfo) {
+          setGpuInfor(gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL));
+        }
+      }
+    }, []);
+    return (
+      <ul class={`main thirdpage ${
+          visibility == "hidden" ? styles.default.visibilityHidden : ""
+        }`}>
+        <header class="htile"></header>
+        <nav class="htopic2">
+          <div onClick={()=> {
+            setVisibility("hidden")
+          }}><img src={backurl} style={{position: "relative", top: "5px"}}></img></div>
+          <div>客户端信息</div>
+        </nav>
+
+        <ul class="contentmain listsabout">
+        <li>
+            <span>GPU信息：</span>
+            <span >{gpuInfor}</span>
           </li>
           <li>
             <span>浏览器版本：</span>
             <span >{navigator.userAgent.toLowerCase()}</span>
           </li>
+
         </ul>
       </ul>
     );
@@ -201,7 +265,7 @@ export default function IndexPage() {
               setMessageUrl(item.jumptUrl)
             }}
           >
-            <div>{key + 1}、</div>
+            {/* <div>{key + 1}、</div> */}
             <div>{item.title}</div>
           </li>
         );
@@ -215,7 +279,7 @@ export default function IndexPage() {
                 setItemList(item)
               }}
             >
-              <div>{key + 1}、</div>
+              {/* <div>{key + 1}、</div> */}
               <div>{item.title}</div>
             </li>
           );
@@ -280,10 +344,11 @@ export default function IndexPage() {
           </div>
         </nav>
           <div class="contentmain">
-            <RecentList 
-              visibility={`${ grayWhich == "2" ? "hidden" : ""}`}
+            {grayWhich == "1" && <RecentList 
+              // visibility={`${ grayWhich == "2" ? "hidden" : ""}`}
+              visibility={""}
               datalists={RecentDatalist}
-            ></RecentList> 
+            ></RecentList> }
             <AchiveList visibility={`${ grayWhich == "1" ? "hidden" : ""}`}></AchiveList>
           </div>
         {footDirect && <About></About>}
