@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import backurl from "./back.png";
-import enterurl2 from "./enter.png";
+import enterurl2 from "./arrow.png";
 import ConfirmDialog from "../forsure/index.jsx";
 let ClientInfo = function ({ setMapstatus, itemList, configInfor }) {
   const [message, setMessage] = useState("");
@@ -49,13 +49,14 @@ let ClientInfo = function ({ setMapstatus, itemList, configInfor }) {
             setMessage(itemList.jumptInfor)
             setMessageUrl(itemList.jumptUrl)
           }}
+          style={{cursor: "pointer"}}
           // style={{position: "fixed", bottom: "10px", height: "50px"}}
         >
           <span 
             // style={{position: 'relative', left: "-5px"}}
-          >详情跳转</span>
-          <img src={enterurl2} style={{width: '18px', position: 'relative', top: '5px'}}></img>
-          <img src={enterurl2} style={{width: '18px', position: 'relative', top: '5px', left: "-10px"}}></img>
+          >详情</span>
+          <img src={enterurl2} style={{width: '16px', position: 'relative', top: '3px', left: '9px'}}></img>
+          {/* <img src={enterurl2} style={{width: '18px', position: 'relative', top: '5px', left: "-10px"}}></img> */}
         </li>}
       </ul>
 
