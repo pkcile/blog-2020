@@ -290,7 +290,6 @@ export default function IndexPage() {
                 window.location.href = item.jumptUrl;
               }}
             >
-              <div>{key + 1}、</div>
               <div>{item.title}</div>
             </li>
           );
