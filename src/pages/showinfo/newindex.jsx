@@ -39,24 +39,22 @@ let ClientInfo = function ({ setMapstatus, itemList, configInfor }) {
           <span>时间：</span>
           <span>{itemList.createDate}</span>
         </li>
-        <li>
+        {itemList.jumptUrl &&<li
+            onClick={() => {
+              setDialogOpen(true)
+              setMessage(itemList.jumptInfor)
+              setMessageUrl(itemList.jumptUrl)
+            }}
+            style={{cursor: "pointer"}}
+        >
           <span>内容：</span>
           <span>{itemList.content}</span>
         </li>
-        {itemList.jumptUrl && <li
-          onClick={() => {
-            setDialogOpen(true)
-            setMessage(itemList.jumptInfor)
-            setMessageUrl(itemList.jumptUrl)
-          }}
-          style={{cursor: "pointer"}}
-          // style={{position: "fixed", bottom: "10px", height: "50px"}}
+        }
+        {!(itemList.jumptUrl) && <li
         >
-          <span 
-            // style={{position: 'relative', left: "-5px"}}
-          >详情</span>
-          <img src={enterurl2} style={{width: '16px', position: 'relative', top: '3px', left: '9px'}}></img>
-          {/* <img src={enterurl2} style={{width: '18px', position: 'relative', top: '5px', left: "-10px"}}></img> */}
+          <span>内容：</span>
+          <span>{itemList.content}</span>
         </li>}
       </ul>
 

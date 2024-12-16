@@ -1,5 +1,13 @@
 var ArchiveDatalist = [
     {
+      title: "通用的部署流程以及对必要的无网开发调试环境搭建",
+      remind: "",
+      jumptIf: true,
+      jumptUrl: "./back/docs/2024-12-17-通用的部署流程以及对必要的无网开发调试环境搭建.html",
+      content: "",
+      createDate: "2024-12-17",
+    }, 
+    {
       title: "查看文件占用和解决的两种方式",
       remind: "",
       jumptIf: true,
@@ -66,6 +74,14 @@ var ArchiveDatalist = [
 ];
 
 var RecentDatalist = [
+  {
+    title: "关停temp.pkcile.cn",
+    titleShort: "关停无用网站",
+    remind: "",
+    jumptIf: false,
+    content: "为便于维护",
+    createDate: "2024-12-17",
+  },
   {
     title: "关停blog.pkcile.cn",
     titleShort: "关停无用网站",

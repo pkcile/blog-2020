@@ -20,7 +20,7 @@ const Mapleaflet = ({setMapstatus, location }) => {
 
 
     L.tileLayer(
-      'https://temp.pkcile.cn/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      'https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
       attribution: false,
       maxZoom: 18,
       detectRetina: false,
