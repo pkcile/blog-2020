@@ -10,6 +10,9 @@ html, body, div, span, h1, ul, p, code, i, form, label, aside, canvas, footer, s
 	font: inherit;
 	vertical-align: baseline;
 }
+html {
+	font-size: 16px;
+}
 /* HTML5 display-role reset for older browsers */
 article, footer, header, nav, section {
 	display: block;
