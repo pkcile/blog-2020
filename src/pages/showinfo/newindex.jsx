@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import backurl from "./back.png";
-import enterurl2 from "./arrow.png";
 import ConfirmDialog from "../forsure/index.jsx";
-let ClientInfo = function ({ setMapstatus, itemList, configInfor }) {
+let ClientInfo = function ({ setMapstatus, itemList }) {
   const [message, setMessage] = useState("");
   let [messageUrl, setMessageUrl] = useState('');
   const [isDialogOpen, setDialogOpen] = useState(false);
