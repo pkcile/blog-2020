@@ -48,14 +48,20 @@ export default function Location() {
 					if (sucess && sucess.coords) {
 						let lat = sucess.coords.latitude;
 						let lon = sucess.coords.longitude;
-						tiandituquery.get('', { type: 'geocode', postStr: JSON.stringify({ 'lon': lon, 'lat': lat, 'ver': 1 }), tk: 'c2eac0b552d848155c72b1d3f6aabf36' }).then(res => {
+						tiandituquery.get('',  {type: 'geocode', postStr: JSON.stringify({ 'lon': lon, 'lat': lat, 'ver': 1 }), tk: 'c2eac0b552d848155c72b1d3f6aabf36' },
+						 function(error, res) {
+							if (error) {
+								console.error('Error:', error);
+								return;
+							}
 							setSpinstatus('none')
 							// let obj = JSON.parse(res);
 	
 							setLocation(sucess.coords);
 							setLocationInfo(res.result.formatted_address + "," + res.result.addressComponent.address);
 							setLocationI(lon.toFixed(4) + "," + lat.toFixed(4))
-						})
+						});
+
 					}
 				});
 			} else {
@@ -67,12 +73,14 @@ export default function Location() {
 						setLocation(sucess.coords);
 						setLocationI(lon.toFixed(4) + "," + lat.toFixed(4))
 						setSpinstatus('none')
-						tiandituquery.get('', { type: 'geocode', postStr: JSON.stringify({ 'lon': lon, 'lat': lat, 'ver': 1 }), tk: 'c2eac0b552d848155c72b1d3f6aabf36' }).then(res => {
-							// let obj = JSON.parse(res);	
-							setLocationInfo(res.result.formatted_address + "," + res.result.addressComponent.address);
-						}).catch((error) => {
-							setNoticemessageobj({ message: '地址获取接口失败 ' + error.message, type: "error" });
-						})
+						tiandituquery.get('',  {type: 'geocode', postStr: JSON.stringify({ 'lon': lon, 'lat': lat, 'ver': 1 }), tk: 'c2eac0b552d848155c72b1d3f6aabf36' },
+						function(error, res) {
+						   if (error) {
+							   setNoticemessageobj({ message: '地址获取接口失败 ' + error.message, type: "error" });
+							   return;
+						   }
+						   setLocationInfo(res.result.formatted_address + "," + res.result.addressComponent.address);
+					   });
 					}
 				}, function name(error) {
 					console.error(error);
@@ -229,8 +237,27 @@ export default function Location() {
 							if (location && location.latitude) {
 								setSpinstatus('flex')
 								// 更新
-								api.get('/add',
-									{
+								// api.get('/add',
+								// 	{
+								// 		locationInfo,
+								// 		comment,
+								// 		theme,
+								// 		gpuInfor,
+								// 		latitude: location.latitude,
+								// 		longitude: location.longitude,
+								// 		accuracy: location.accuracy,
+								// 		fingerDetail: fingerDetail,
+								// 		username: username
+								// 	}).then(res => {
+								// 		if (childRef.current) {
+								// 			childRef.current.callShowAlert();
+								// 			setNoticemessageobj({ message: '更新位置成功', type: "success" });
+								// 			setMapstatus(true)
+								// 		}
+								// 		setSpinstatus('none')
+								// 	})
+
+									api.get('/add', {
 										locationInfo,
 										comment,
 										theme,
@@ -240,14 +267,19 @@ export default function Location() {
 										accuracy: location.accuracy,
 										fingerDetail: fingerDetail,
 										username: username
-									}).then(res => {
+									 }, function(error, data) {
+										if (error) {
+											console.error('Error:', error);
+											return;
+										}
+										console.log('Data:', data);
 										if (childRef.current) {
 											childRef.current.callShowAlert();
 											setNoticemessageobj({ message: '更新位置成功', type: "success" });
 											setMapstatus(true)
 										}
 										setSpinstatus('none')
-									})
+									});
 							}
 							// 重新定位
 							else {
