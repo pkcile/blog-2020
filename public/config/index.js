@@ -1,5 +1,13 @@
 var ArchiveDatalist = [
     {
+      title: "bat脚本的使用（二）",
+      remind: "",
+      jumptIf: true,
+      jumptUrl: "./#/docs?path=./back/docjson/2025-04-05-bat脚本的使用-2.json",
+      content: "",
+      createDate: "2025-04-06",
+    }, 
+    {
       title: "通用的部署流程以及对必要的无网开发调试环境搭建",
       remind: "",
       jumptIf: true,

@@ -6,7 +6,10 @@ import "./util/polyfills.js"
 const App = () => {
   const [currentPath, setCurrentPath] = useState(getInitialPath());
   const Location = lazy(() => import('./pages/location/index.jsx')); // 动态导入组件
-  const NotFound = lazy(() => import('./pages/404.jsx'));;
+  const NotFound = lazy(() => import('./pages/404.jsx'));
+  const JsonEditor = lazy(() => import('./pages/jsoneditor/index.jsx'));
+  const Docs = lazy(() => import('./pages/docs/index.jsx'));
+
   // 获取初始路径
   function getInitialPath() {
     return window.location.hash ? window.location.hash.slice(1) : "";
@@ -25,13 +28,23 @@ const App = () => {
   // 渲染组件
   const renderComponent = () => {
     console.log(currentPath)
-    switch (currentPath) {
+    let currentPathArray = currentPath.split("?")
+    let currentPath2 = currentPathArray[0]
+    console.log(currentPathArray)
+    let param = currentPathArray.length > 1 ? currentPathArray[1] : ""
+    console.log(param)
+
+    switch (currentPath2) {
       case '':
         return <Home />;
       case '/':
         return <Home />;
       case '/now/location':
         return <Location />;
+      case '/json':
+        return <JsonEditor />;
+      case '/docs':
+        return <Docs param={param}/>;
       default:
         console.log(currentPath)
         return <NotFound />;
