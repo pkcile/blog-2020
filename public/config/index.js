@@ -1,5 +1,13 @@
 var ArchiveDatalist = [
     {
+      title: "常用的脚本命令（代理和软连接）",
+      remind: "",
+      jumptIf: true,
+      jumptUrl: "./#/docs?path=./back/docjson/2025-04-07-常用的脚本命令-代理和软连接.json",
+      content: "",
+      createDate: "2025-04-07",
+    }, 
+    {
       title: "bat脚本的使用（二）",
       remind: "",
       jumptIf: true,
