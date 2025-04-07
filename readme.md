@@ -1,14 +1,44 @@
 [![Upload to COS](https://github.com/pkcile/blog-2020/actions/workflows/tencent-cos.yml/badge.svg)](https://github.com/pkcile/blog-2020/actions/workflows/tencent-cos.yml)
+
+Node版本兼容性,v15.4.0(2020-12-09)、v16.20.2、v18.20.4、v20.14.0、v22.14.0(改版本不好用移除了zlib包能正常使用，云环境下却正常)：
+
+打包之后产物的兼容性，IE9(部分样式错位)、IE10、IE11; chorme  (>=48，不确定>=30)、火狐（未测试）、x5（未测试）
+
 ### 本地开发环境说明
 #### 1.环境说明
-开发工具依赖在精简中
-开发环境：node 16.20.2
+---
+环境1：
+
+开发环境：node v16.20.2
 电脑配置：
 - CPU i7-4710HQ 2.5GHZ
-- 内存 ddr3 8G、
+- 内存 三星ddr3 8G、
 - 存储Samsung SSD 870 EVO 250GB
 
+---
+环境2：
 
+开发环境：node v16.20.2
+- CPU AMD 5600G 基准3.9GHZ
+- 内存 金士顿32G（16G * 2）、
+- 存储ST200VN003-3CW102
+- 启动时间：2s左右（次数多的情况下是1s左右）
+--构建时间：3240ms
+- 打包时间：4.36s
+
+----
+环境3：
+
+生产环境：node v22.5.1
+- 内存 32G、
+- 构建时间：2796ms（打包时间略高于它）
+
+----
+说明1：
+
+引入了preact相关的用法，node版本目前需要 >=v15.4.0，之前能够在node12环境（待确认）
+
+----
 #### 2.安装的开发工具依赖说明
 全局安装rimraf，目的删除node_modules
 - 1.开发环境依赖占用147MB空间，包含11,803个文件
@@ -79,7 +109,7 @@ if (!window.Promise) {
 生产环境缺陷 ie9（工具 SCRIPT1010: 缺少标识符ie8）
 路由/#/now/location IE11及以下都不支持
 ##### 1.webpack兼容性支持
-![alt text](./public/back/docs/image.png)
+![alt text](./public/back/docs/other/image.png)
 https://longhonour.github.io/2019/09/25/webpack-ie/
 
 ##### 2.vue兼容性支持
