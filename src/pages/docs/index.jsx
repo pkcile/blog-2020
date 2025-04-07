@@ -3,50 +3,57 @@ import { staticApi } from "../../util/request.js"
 
 const OpenCVTutorial = (dataParent) => {
   
+  // const data = {
+  //   "title": "OpenCV基础教程",
+  //   "sections": [
+  //     {
+  //       "title": "环境准备aaa",
+  //       "steps": [
+  //         {
+  //           "title": "安装Python环境aaaa",
+  //           "content": "在使用OpenCV之前，首先需要确保您的电脑上安装了Python环境。建议使用Python 3.7或更高版本。111",
+  //           "code": "python --version111aaaa",
+  //           "note": "如果未安装Python，请访问Python官网下载并安装"
+  //         },
+  //         {
+  //           "title": "安装OpenCV库",
+  //           "content": "使用pip包管理器安装OpenCV库，这是进行图像处理的基础库：",
+  //           "code": "pip install opencv-pythonbbbb\npip install opencv-python-headless  # 如果不需要GUI功能\n\nccccc",
+  //           "note": `安装完成后，可以通过以下命令验证安装：\nimport cv2\nprint(cv2.__version__)\ncccc`
+  //         }
+  //       ]
+  //     },
+  //     {
+  //       "title": "基础图像处理",
+  //       "steps": [
+  //         {
+  //           "title": "图像读取和显示",
+  //           "content": "下面是一个简单的图像处理示例：",
+  //           "code": `import cv2\r\nimport numpy as np\r\n\r\n# 读取图像\r\nimg = cv2.imread('image.jpg')\r\n\r\n# 转换为灰度图\r\ngray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)\r\n\r\n# 显示结果\r\ncv2.imshow('Original', img)\r\ncv2.imshow('Gray', gray)\r\ncv2.waitKey(0)\r\ncv2.destroyAllWindows()`,
+  //           "note": "确保图像文件路径正确，且图像格式支持（jpg、png等）"
+  //         },
+  //         {
+  //           "title": "你好",
+  //           "content": "你好",
+  //           "code": "你好",
+  //           "note": "你好"
+  //         }
+  //       ]
+  //     }
+  //   ],
+  //   "notes": [
+  //     "确保Python环境正确配置",
+  //     "图像处理前检查图像是否成功加载",
+  //     "注意内存使用，处理大图像时可能需要优化"
+  //   ]
+  // }
   const data = {
-    "title": "OpenCV基础教程1111111111",
+    "title": "",
     "sections": [
-      {
-        "title": "环境准备aaa",
-        "steps": [
-          {
-            "title": "安装Python环境aaaa",
-            "content": "在使用OpenCV之前，首先需要确保您的电脑上安装了Python环境。建议使用Python 3.7或更高版本。111",
-            "code": "python --version111aaaa",
-            "note": "如果未安装Python，请访问Python官网下载并安装"
-          },
-          {
-            "title": "安装OpenCV库",
-            "content": "使用pip包管理器安装OpenCV库，这是进行图像处理的基础库：",
-            "code": "pip install opencv-pythonbbbb\npip install opencv-python-headless  # 如果不需要GUI功能\n\nccccc",
-            "note": `安装完成后，可以通过以下命令验证安装：\nimport cv2\nprint(cv2.__version__)\ncccc`
-          }
-        ]
-      },
-      {
-        "title": "基础图像处理",
-        "steps": [
-          {
-            "title": "图像读取和显示",
-            "content": "下面是一个简单的图像处理示例：",
-            "code": `import cv2\r\nimport numpy as np\r\n\r\n# 读取图像\r\nimg = cv2.imread('image.jpg')\r\n\r\n# 转换为灰度图\r\ngray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)\r\n\r\n# 显示结果\r\ncv2.imshow('Original', img)\r\ncv2.imshow('Gray', gray)\r\ncv2.waitKey(0)\r\ncv2.destroyAllWindows()`,
-            "note": "确保图像文件路径正确，且图像格式支持（jpg、png等）"
-          },
-          {
-            "title": "你好",
-            "content": "你好",
-            "code": "你好",
-            "note": "你好"
-          }
-        ]
-      }
-    ],
-    "notes": [
-      "确保Python环境正确配置",
-      "图像处理前检查图像是否成功加载",
-      "注意内存使用，处理大图像时可能需要优化"
     ]
   }
+          
+
   const [tutorialData, setTutorialData] = useState(data)
   // const [tutorialData] = useState({
   //   title: "OpenCV基础教程",
