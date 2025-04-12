@@ -3,7 +3,7 @@ var ArchiveDatalist = [
       title: "常用的脚本命令（代理和软连接）",
       remind: "",
       jumptIf: true,
-      jumptUrl: "./#/docs?path=./back/docjson/2025-04-07-常用的脚本命令-代理和软连接.json",
+      jumptUrl: "./back/docjson/docstyle1.html?path=./2025-04-07-常用的脚本命令-代理和软连接.json",
       content: "",
       createDate: "2025-04-07",
     }, 
