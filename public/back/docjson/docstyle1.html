@@ -583,20 +583,34 @@
         var theRequest = getQueryParams();
 
         // console.log(theRequest)
-        var xhr = new XMLHttpRequest();
-        if (theRequest['path']) {
-            var jsonstr = theRequest['path']
-            console.log(jsonstr)
-            xhr.open('GET', jsonstr, true);
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    var tutorialData = JSON.parse(xhr.responseText);
-                    console.log(tutorialData)
-                    renderTutorial(tutorialData);
+        // var xhr = new XMLHttpRequest();
+        // if (theRequest['path']) {
+        //     var jsonstr = theRequest['path']
+        //     // console.log(jsonstr)
+        //     xhr.open('GET', jsonstr, true);
+        //     xhr.onreadystatechange = function () {
+        //         if (xhr.readyState === 4 && xhr.status === 200) {
+        //             var tutorialData = JSON.parse(xhr.responseText);
+        //             // console.log(tutorialData)
+        //             renderTutorial(tutorialData);
+        //         }
+        //     };
+        //     xhr.send();
+        // }
+
+                if (theRequest['path']) {
+                    // 服务端返回的 JSONP 数据格式：callbackFunction({"data": "value"});
+                    function callbackFunction(response) {
+                    // console.log(response.data); // "value"
+                     renderTutorial(response.data);
+                    }
+
+                    // 动态添加脚本标签
+                    var script = document.createElement('script');
+                    script.src = theRequest['path'] + '?callback=callbackFunction';
+                    document.body.appendChild(script);
                 }
-            };
-            xhr.send();
-        }
+
     </script>
 </body>
 
