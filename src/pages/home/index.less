@@ -1,3 +1,12 @@
+
+:global * {
+    scrollbar-color: rgba(0, 0, 0, 0.2) rgba(0, 0, 0, 0.1);
+    /* 第一个方块颜色，第二个轨道颜色(用于更改火狐浏览器样式) */
+    scrollbar-width: thin;
+    /* 火狐滚动条无法自定义宽度，只能通过此属性使滚动条宽度变细 */
+    -ms-overflow-style: none;
+}
+
 /* 隐藏垂直滚动条箭头 */
 :global *::-webkit-scrollbar-button:vertical {
     display: none;
@@ -10,21 +19,25 @@
 :global *::-webkit-scrollbar-track {
     border: 1px dotted #F5F5F5;
     background-color: black;
+    display: none;
 }
 
 :global *::-webkit-scrollbar {
     width: 10px;
     background-color: #000;
+    display: none;
 }
 
 :global *::-webkit-scrollbar-thumb {
     background-color: #F5F5F5;
     cursor: pointer;
+    display: none;
 
 }
 :global *::scrollbar-thumb {
     background-color: #F5F5F5;
     cursor: pointer;
+    display: none;
 }
 
 :global .winform {
