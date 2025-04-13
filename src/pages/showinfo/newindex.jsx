@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import backurl from "./back.png";
 import ConfirmDialog from "../forsure/index.jsx";
 let ClientInfo = function ({ setMapstatus, itemList }) {
+  itemList.jumptUrl = window.location.href + itemList.jumptUrl;
   const [message, setMessage] = useState("");
-  let [messageUrl, setMessageUrl] = useState('');
+  let [messageUrl, setMessageUrl] = useState("");
   const [isDialogOpen, setDialogOpen] = useState(false);
   useEffect(() => {}, []);
   const handleClose = () => {
@@ -38,25 +39,26 @@ let ClientInfo = function ({ setMapstatus, itemList }) {
           <span>时间：</span>
           <span>{itemList.createDate}</span>
         </li>
-        {itemList.jumptUrl &&<li
+        {itemList.jumptUrl && (
+          <li
             onClick={() => {
-              setDialogOpen(true)
-              setMessage(itemList.jumptInfor)
-              setMessageUrl(itemList.jumptUrl)
+              setDialogOpen(true);
+              setMessage(itemList.jumptInfor);
+              setMessageUrl(itemList.jumptUrl);
             }}
-            style={{cursor: "pointer"}}
-        >
-          <span>内容：</span>
-          <span>{itemList.content}</span>
-        </li>
-        }
-        {!(itemList.jumptUrl) && <li
-        >
-          <span>内容：</span>
-          <span>{itemList.content}</span>
-        </li>}
+            style={{ cursor: "pointer" }}
+          >
+            <span>内容：</span>
+            <span>{itemList.content}</span>
+          </li>
+        )}
+        {!itemList.jumptUrl && (
+          <li>
+            <span>内容：</span>
+            <span>{itemList.content}</span>
+          </li>
+        )}
       </ul>
-
     </ul>
   );
 };

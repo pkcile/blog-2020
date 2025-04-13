@@ -65,6 +65,7 @@ https兼容性设置：...
 ```
 rimraf .\node_modules\
 git tag -d v0.1.0
+
 git tag -a "v0.0.7" -m "使用preact改造该项目"
 git push origin v0.0.7
 git push origin tag -d v0.0.7
