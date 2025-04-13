@@ -364,6 +364,12 @@
             mainTitle.textContent = data.title;
             container.appendChild(mainTitle);
 
+            try {
+                document.title = data.title;
+            } catch (e) {
+                console.error('描述渲染失败:', e);
+            }
+
             // 渲染各个部分
             for (var sectionIndex = 0; sectionIndex < data.sections.length; sectionIndex++) {
                 var section = data.sections[sectionIndex];
@@ -457,10 +463,18 @@
                                         this.textContent = '已复制!';
                                         addClass(this, 'copied');
                                     } else if (navigator.clipboard) { // 现代浏览器
-                                        navigator.clipboard.writeText(code).then(function () {
-                                            copyButton.textContent = '已复制!';
-                                            addClass(copyButton, 'copied');
-                                        });
+                                        // navigator.clipboard.writeText(code).then(function () {
+                                        //     this.textContent = '已复制!';
+                                        //     addClass(this, 'copied');
+                                        // });
+                                        var textarea = document.createElement('textarea');
+                                        textarea.value = code;
+                                        document.body.appendChild(textarea);
+                                        textarea.select();
+                                        document.execCommand('copy');
+                                        document.body.removeChild(textarea);
+                                        this.textContent = '已复制!';
+                                        addClass(this, 'copied');
                                     } else { // 其他浏览器
                                         var textarea = document.createElement('textarea');
                                         textarea.value = code;
@@ -475,7 +489,7 @@
                                     setTimeout(function () {
                                         this.textContent = '复制代码';
                                         removeClass(this, 'copied');
-                                    }.bind(this), 2000);
+                                    }.bind(this), 1000);
                                 } catch (err) {
                                     console.error('复制失败:', err);
                                     this.textContent = '复制失败';
@@ -528,18 +542,6 @@
             }
         }
 
-        // var url = location.search; //获取url中"?"符后的字串  
-        // url =  decodeURIComponent(url);
-        // console.log(url)
-        // var theRequest = {};
-        // if (url.indexOf("?") != -1) {
-        //     var str = url.substr(1);
-        //     var strs = str.split("&");
-        //     for (var i = 0; i < strs.length; i++) {
-        //         var keyValue = strs[i].split("=");
-        //         theRequest[keyValue[0]] = unescape(keyValue[1]);
-        //     }
-        // } 
 
         function getQueryParams() {
             var query = location.search.substring(1); // 去掉问号
@@ -581,35 +583,50 @@
 
         // 使用示例
         var theRequest = getQueryParams();
+        var html404 = {
+            "title": "未匹配到，请输入正确地址",
+            "sections": [
+                {
+                },
+            ],
+            "notes": []
+        }
+        if (theRequest['path']) {
+            // 服务端返回的 JSONP 数据格式：callbackFunction({"data": "value"});
+            function callbackFunction(response) {
+                // console.log("提示")
+                renderTutorial(response);
+            }
 
-        // console.log(theRequest)
-        // var xhr = new XMLHttpRequest();
-        // if (theRequest['path']) {
-        //     var jsonstr = theRequest['path']
-        //     // console.log(jsonstr)
-        //     xhr.open('GET', jsonstr, true);
-        //     xhr.onreadystatechange = function () {
-        //         if (xhr.readyState === 4 && xhr.status === 200) {
-        //             var tutorialData = JSON.parse(xhr.responseText);
-        //             // console.log(tutorialData)
-        //             renderTutorial(tutorialData);
-        //         }
-        //     };
-        //     xhr.send();
-        // }
-
-                if (theRequest['path']) {
-                    // 服务端返回的 JSONP 数据格式：callbackFunction({"data": "value"});
-                    function callbackFunction(response) {
-                    // console.log(response.data); // "value"
-                     renderTutorial(response.data);
+            try {
+                // 动态添加脚本标签
+                var script = document.createElement('script');
+                script.src = theRequest['path'] + '?jsoncallback=callbackFunction';
+                script.onerror = function () {
+                    console.error('加载脚本失败:', script.src);
+                    document.body.removeChild(script);
+                    html404 = {
+                        "title": "数据加载失败",
+                        "sections": [
+                            {
+                            },
+                        ],
+                        "notes": []
                     }
+                    renderTutorial(html404)
+                };
+                document.body.appendChild(script);
 
-                    // 动态添加脚本标签
-                    var script = document.createElement('script');
-                    script.src = theRequest['path'] + '?callback=callbackFunction';
-                    document.body.appendChild(script);
-                }
+            } catch (error) {
+                console.log(error)
+                renderTutorial(html404)
+            }
+
+        } else {
+            renderTutorial(html404)
+        }
+
+
 
     </script>
 </body>
