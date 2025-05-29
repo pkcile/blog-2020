@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        /* 保持原有样式不变 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+        }
+
+        .tutorial-container {
+            padding: 20px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .code-block {
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-block pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .copy-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 6px 12px;
+            background-color: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+
+        .copy-button:hover {
+            background-color: #1976d2;
+        }
+
+        .copy-button.copied {
+            background-color: #4caf50;
+        }
+
+        .content {
+            margin: 15px 0;
+            line-height: 1.8;
+        }
+
+        .content p {
+            margin-bottom: 12px;
+        }
+
+        .note {
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .step {
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #2196f3;
+        }
+
+        .step:hover {
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .step-number {
+            display: inline-block;
+            background: #2196f3;
+            color: white;
+            width: 28px;
+            height: 28px;
+            line-height: 28px;
+            text-align: center;
+            border-radius: 14px;
+            margin-right: 12px;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(33, 150, 243, 0.3);
+        }
+
+        .step h3 {
+            display: inline-block;
+            margin: 0;
+            color: #2c3e50;
+            font-size: 1.2em;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .result {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f1f8e9;
+            border-radius: 4px;
+        }
+
+        .result-title {
+            font-weight: bold;
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+
+        .list-item {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .list-item:before {
+            content: "•";
+            color: #2196f3;
+            position: absolute;
+            left: 0;
+        }
+
+        /* 图片懒加载相关样式 */
+        .image-container {
+            margin: 15px 0;
+            text-align: center;
+            min-height: 150px;
+            /* 为占位符预留空间 */
+        }
+
+        .tutorial-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: opacity 0.3s ease;
+            opacity: 0;
+            /* 初始不可见 */
+        }
+
+        .tutorial-image.loaded {
+            opacity: 1;
+            /* 加载完成后显示 */
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 150px;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        .image-caption {
+            margin-top: 8px;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .image-error {
+            width: 100%;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ffebee;
+            color: #d32f2f;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tutorial-container" id="tutorialContent">
+        <!-- 内容将通过JavaScript动态生成 -->
+    </div>
+
+    <script>
+        // 兼容IE9+的事件监听函数
+        function addEvent(element, eventName, fn) {
+            if (element.addEventListener) {
+                element.addEventListener(eventName, fn);
+            } else if (element.attachEvent) {
+                element.attachEvent('on' + eventName, fn);
+            }
+        }
+
+        // 兼容IE9+的classList添加函数
+        function addClass(element, className) {
+            if (element.classList) {
+                element.classList.add(className);
+            } else {
+                element.className += ' ' + className;
+            }
+        }
+
+        // 兼容IE9+的classList移除函数
+        function removeClass(element, className) {
+            if (element.classList) {
+                element.classList.remove(className);
+            } else {
+                element.className = element.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+            }
+        }
+
+        // 节流函数，减少滚动事件触发频率
+        function throttle(fn, delay) {
+            var timer = null;
+            return function () {
+                var context = this, args = arguments;
+                clearTimeout(timer);
+                timer = setTimeout(function () {
+                    fn.apply(context, args);
+                }, delay);
+            };
+        }
+
+        // 真正的图片懒加载实现（兼容IE9+）
+        function LazyImageLoader() {
+            this.images = [];
+            this.init();
+        }
+
+        LazyImageLoader.prototype = {
+            init: function () {
+                var self = this;
+                // 使用节流函数减少触发频率
+                var throttledCheck = throttle(function () {
+                    self.checkImages();
+                }, 200);
+
+                addEvent(window, 'scroll', throttledCheck);
+                addEvent(window, 'resize', throttledCheck);
+                addEvent(window, 'load', function () {
+                    self.checkImages();
+                });
+            },
+
+            addImage: function (imgElement) {
+                // 标记图片为未加载
+                imgElement.setAttribute('data-loaded', 'false');
+                this.images.push(imgElement);
+                // 不立即检查，等待滚动事件触发
+            },
+
+            checkImages: function () {
+                var self = this;
+                for (var i = 0; i < this.images.length; i++) {
+                    var img = this.images[i];
+                    // 只检查未加载的图片
+                    if (img.getAttribute('data-loaded') === 'false') {
+                        if (this.isInViewport(img)) {
+                            this.loadImage(img);
+                        }
+                    }
+                }
+            },
+
+            isInViewport: function (element) {
+                var rect = element.getBoundingClientRect();
+                var viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+                var viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+
+                // 计算元素是否在视口中，增加100px的提前加载区域
+                return (
+                    rect.top <= (viewportHeight + 100) &&
+                    rect.bottom >= -100 &&
+                    rect.left <= (viewportWidth + 100) &&
+                    rect.right >= -100
+                );
+            },
+
+            loadImage: function (imgElement) {
+                var src = imgElement.getAttribute('data-src');
+                if (!src) return;
+
+                // 标记为已加载，避免重复加载
+                imgElement.setAttribute('data-loaded', 'true');
+                var self = this;
+
+                var tempImg = new Image();
+                tempImg.onload = function () {
+                    imgElement.src = src;
+                    addClass(imgElement, 'loaded');
+                    // 移除占位符
+                    var placeholder = imgElement.previousSibling;
+                    while (placeholder && placeholder.nodeType !== 1) {
+                        placeholder = placeholder.previousSibling;
+                    }
+                    if (placeholder && placeholder.className.indexOf('image-placeholder') !== -1) {
+                        placeholder.parentNode.removeChild(placeholder);
+                    }
+                };
+                tempImg.onerror = function () {
+                    console.error('图片加载失败:', src);
+                    var errorMsg = document.createElement('div');
+                    errorMsg.className = 'image-error';
+                    errorMsg.textContent = '图片加载失败';
+                    var placeholder = imgElement.previousSibling;
+                    while (placeholder && placeholder.nodeType !== 1) {
+                        placeholder = placeholder.previousSibling;
+                    }
+                    if (placeholder && placeholder.className.indexOf('image-placeholder') !== -1) {
+                        placeholder.parentNode.replaceChild(errorMsg, placeholder);
+                    }
+                };
+                tempImg.src = src;
+            }
+        };
+
+        // 渲染教程内容
+        function renderTutorial(data) {
+            var container = document.getElementById('tutorialContent');
+            var lazyLoader = new LazyImageLoader();
+
+            // 渲染主标题
+            var mainTitle = document.createElement('h1');
+            mainTitle.className = 'section-title';
+            mainTitle.textContent = data.title;
+            container.appendChild(mainTitle);
+
+            try {
+                document.title = data.title;
+            } catch (e) {
+                console.error('描述渲染失败:', e);
+            }
+
+            // 渲染各个部分
+            for (var sectionIndex = 0; sectionIndex < data.sections.length; sectionIndex++) {
+                var section = data.sections[sectionIndex];
+                var sectionDiv = document.createElement('div');
+                sectionDiv.className = 'section';
+
+                var sectionTitle = document.createElement('h2');
+                sectionTitle.className = 'section-title';
+                sectionTitle.textContent = section.title;
+                sectionDiv.appendChild(sectionTitle);
+
+                // 渲染步骤
+                for (var index = 0; index < section.steps.length; index++) {
+                    var step = section.steps[index];
+                    var stepDiv = document.createElement('div');
+                    stepDiv.className = 'step';
+
+                    var stepHeader = document.createElement('div');
+                    stepHeader.className = 'step-header';
+
+                    var stepNumber = document.createElement('span');
+                    stepNumber.className = 'step-number';
+                    stepNumber.textContent = (index + 1).toString();
+                    stepHeader.appendChild(stepNumber);
+
+                    var stepTitle = document.createElement('h3');
+                    stepTitle.textContent = step.title;
+                    stepHeader.appendChild(stepTitle);
+
+                    stepDiv.appendChild(stepHeader);
+
+                    var contentDiv = document.createElement('div');
+                    contentDiv.className = 'content';
+
+                    // 添加内容
+                    var contentP = document.createElement('p');
+                    contentP.textContent = step.content;
+                    contentDiv.appendChild(contentP);
+
+                    // 添加图片
+                    if (step.image) {
+                        var imageContainer = document.createElement('div');
+                        imageContainer.className = 'image-container';
+
+                        // 添加占位符
+                        if (step.image.placeholder) {
+                            var placeholder = document.createElement('div');
+                            placeholder.className = 'image-placeholder';
+                            placeholder.textContent = step.image.placeholder;
+                            imageContainer.appendChild(placeholder);
+                        }
+
+                        var img = document.createElement('img');
+                        img.className = 'tutorial-image';
+                        img.setAttribute('data-src', step.image.src);
+                        img.setAttribute('alt', step.image.alt);
+                        // 初始不设置src属性
+                        imageContainer.appendChild(img);
+
+                        if (step.image.caption) {
+                            var caption = document.createElement('div');
+                            caption.className = 'image-caption';
+                            caption.textContent = step.image.caption;
+                            imageContainer.appendChild(caption);
+                        }
+
+                        contentDiv.appendChild(imageContainer);
+
+                        // 添加图片到懒加载器，但不立即加载
+                        lazyLoader.addImage(img);
+                    }
+
+                    // 添加代码块
+                    if (step.code) {
+                        var codeBlock = document.createElement('div');
+                        codeBlock.className = 'code-block';
+
+                        var pre = document.createElement('pre');
+                        pre.textContent = step.code;
+                        codeBlock.appendChild(pre);
+
+                        var copyButton = document.createElement('button');
+                        copyButton.className = 'copy-button';
+                        copyButton.textContent = '复制代码';
+
+                        addEvent(copyButton, 'click', function (code) {
+                            return function () {
+                                try {
+                                    if (window.clipboardData) { // IE
+                                        window.clipboardData.setData('Text', code);
+                                        this.textContent = '已复制!';
+                                        addClass(this, 'copied');
+                                    } else if (navigator.clipboard) { // 现代浏览器
+                                        // navigator.clipboard.writeText(code).then(function () {
+                                        //     this.textContent = '已复制!';
+                                        //     addClass(this, 'copied');
+                                        // });
+                                        var textarea = document.createElement('textarea');
+                                        textarea.value = code;
+                                        document.body.appendChild(textarea);
+                                        textarea.select();
+                                        document.execCommand('copy');
+                                        document.body.removeChild(textarea);
+                                        this.textContent = '已复制!';
+                                        addClass(this, 'copied');
+                                    } else { // 其他浏览器
+                                        var textarea = document.createElement('textarea');
+                                        textarea.value = code;
+                                        document.body.appendChild(textarea);
+                                        textarea.select();
+                                        document.execCommand('copy');
+                                        document.body.removeChild(textarea);
+                                        this.textContent = '已复制!';
+                                        addClass(this, 'copied');
+                                    }
+
+                                    setTimeout(function () {
+                                        this.textContent = '复制代码';
+                                        removeClass(this, 'copied');
+                                    }.bind(this), 1000);
+                                } catch (err) {
+                                    console.error('复制失败:', err);
+                                    this.textContent = '复制失败';
+                                }
+                            };
+                        }(step.code));
+
+                        codeBlock.appendChild(copyButton);
+                        contentDiv.appendChild(codeBlock);
+                    }
+
+                    // 添加注意事项
+                    if (step.note) {
+                        var noteDiv = document.createElement('div');
+                        noteDiv.className = 'note';
+                        noteDiv.textContent = step.note;
+                        contentDiv.appendChild(noteDiv);
+                    }
+
+                    stepDiv.appendChild(contentDiv);
+                    sectionDiv.appendChild(stepDiv);
+                }
+
+                container.appendChild(sectionDiv);
+            }
+
+            // 渲染注意事项
+            if (data.notes && data.notes.length > 0) {
+                var notesSection = document.createElement('div');
+                notesSection.className = 'section';
+
+                var notesTitle = document.createElement('h2');
+                notesTitle.className = 'section-title';
+                notesTitle.textContent = '注意事项';
+                notesSection.appendChild(notesTitle);
+
+                var notesContent = document.createElement('div');
+                notesContent.className = 'content';
+
+                for (var i = 0; i < data.notes.length; i++) {
+                    var note = data.notes[i];
+                    var noteItem = document.createElement('div');
+                    noteItem.className = 'list-item';
+                    noteItem.textContent = note;
+                    notesContent.appendChild(noteItem);
+                }
+
+                notesSection.appendChild(notesContent);
+                container.appendChild(notesSection);
+            }
+        }
+
+
+        function getQueryParams() {
+            var query = location.search.substring(1); // 去掉问号
+            if (!query) return {};
+
+            // 兼容IE8-9的解码方式
+            try {
+                query = decodeURIComponent(query);
+            } catch (e) {
+                // 如果decodeURIComponent失败，尝试unescape
+                try {
+                    query = unescape(query);
+                } catch (e2) {
+                    // 如果都失败，保持原样
+                }
+            }
+
+            var params = {};
+            var pairs = query.split('&');
+
+            for (var i = 0; i < pairs.length; i++) {
+                var pair = pairs[i].split('=');
+                var key = pair[0];
+                var value = pair[1] || '';
+
+                // 处理重复参数
+                if (params[key] !== undefined) {
+                    if (!Array.isArray(params[key])) {
+                        params[key] = [params[key]];
+                    }
+                    params[key].push(value);
+                } else {
+                    params[key] = value;
+                }
+            }
+
+            return params;
+        }
+
+        // 使用示例
+        var theRequest = getQueryParams();
+        var html404 = {
+            "title": "未匹配到，请输入正确地址",
+            "sections": [
+                {
+                },
+            ],
+            "notes": []
+        }
+        if (theRequest['path']) {
+            // 服务端返回的 JSONP 数据格式：callbackFunction({"data": "value"});
+            function callbackFunction(response) {
+                // console.log("提示")
+                renderTutorial(response);
+            }
+
+            try {
+                // 动态添加脚本标签
+                var script = document.createElement('script');
+                script.src = theRequest['path'] + '?jsoncallback=callbackFunction';
+                script.onerror = function () {
+                    console.error('加载脚本失败:', script.src);
+                    document.body.removeChild(script);
+                    html404 = {
+                        "title": "数据加载失败",
+                        "sections": [
+                            {
+                            },
+                        ],
+                        "notes": []
+                    }
+                    renderTutorial(html404)
+                };
+                document.body.appendChild(script);
+
+            } catch (error) {
+                console.log(error)
+                renderTutorial(html404)
+            }
+
+        } else {
+            renderTutorial(html404)
+        }
+
+
+
+    </script>
+</body>
+
+</html>

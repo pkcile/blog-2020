@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>教程内容</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+        }
+
+        .tutorial-container {
+            padding: 20px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .code-block {
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-block pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .copy-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 6px 12px;
+            background-color: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+
+        .copy-button:hover {
+            background-color: #1976d2;
+        }
+
+        .copy-button.copied {
+            background-color = '#4caf50';
+        }
+
+        .content {
+            margin: 15px 0;
+            line-height: 1.8;
+        }
+
+        .content p {
+            margin-bottom: 12px;
+        }
+
+        .note {
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .step {
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #2196f3;
+        }
+
+        .step:hover {
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .step-number {
+            display: inline-block;
+            background: #2196f3;
+            color: white;
+            width: 28px;
+            height: 28px;
+            line-height: 28px;
+            text-align: center;
+            border-radius: 14px;
+            margin-right: 12px;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(33, 150, 243, 0.3);
+        }
+
+        .step h3 {
+            display: inline-block;
+            margin: 0;
+            color: #2c3e50;
+            font-size: 1.2em;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .result {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f1f8e9;
+            border-radius: 4px;
+        }
+
+        .result-title {
+            font-weight: bold;
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+
+        .list-item {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .list-item:before {
+            content: "•";
+            color: #2196f3;
+            position: absolute;
+            left: 0;
+        }
+
+        /* 图片懒加载相关样式 */
+        .image-container {
+            margin: 15px 0;
+            text-align: center;
+            min-height: 150px; /* 为占位符预留空间 */
+        }
+
+        .tutorial-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: opacity 0.3s ease;
+            opacity: 0; /* 初始不可见 */
+        }
+
+        .tutorial-image.loaded {
+            opacity: 1; /* 加载完成后显示 */
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 150px;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        .image-caption {
+            margin-top: 8px;
+            font-size: 0.9em;
+            color: #666;
+        }
+/* 
+        .image-error {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ffebee;
+            color: #d32f2f;
+            border-radius: 4px;
+        } */
+    </style>
+</head>
+
+<body>
+    <div class="tutorial-container" id="tutorialContent">
+        <!-- 内容将通过JavaScript动态生成 -->
+    </div>
+
+    <script>
+        const tutorialData = {
+            "title": "OpenCV基础教程",
+            "sections": [
+                {
+                    "title": "环境准备",
+                    "steps": [
+                        {
+                            "title": "安装Python环境",
+                            "content": "在使用OpenCV之前，首先需要确保您的电脑上安装了Python环境。建议使用Python 3.7或更高版本。",
+                            "code": "python --version",
+                            "note": "如果未安装Python，请访问Python官网下载并安装",
+                            "image": {
+                                "src": "https://pic4.zhimg.com/v2-a9c3e5d8d611526eb45d3c0ee4cd1087_r.jpg",
+                                "alt": "Python安装界面",
+                                "caption": "图1: Python安装界面截图",
+                                "placeholder": "Python安装界面加载中..."
+                            }
+                        },
+                        {
+                            "title": "安装OpenCV库",
+                            "content": "使用pip包管理器安装OpenCV库，这是进行图像处理的基础库：",
+                            "code": "pip install opencv-python\npip install opencv-python-headless  # 如果不需要GUI功能",
+                            "note": "安装完成后，可以通过以下命令验证安装：\nimport cv2\nprint(cv2.__version__)",
+                            "image": {
+                                "src": "https://pic4.zhimg.com/v2-a9c3e5d8d611526eb45d3c0ee4cd108222227_r.jpg",
+                                "alt": "OpenCV安装成功截图",
+                                "caption": "图2: OpenCV安装成功验证",
+                                "placeholder": "OpenCV安装截图加载中..."
+                            }
+                        }
+                    ]
+                },
+                {
+                    "title": "基础图像处理",
+                    "steps": [
+                        {
+                            "title": "图像读取和显示",
+                            "content": "下面是一个简单的图像处理示例：",
+                            "code": `import cv2
+import numpy as np
+
+# 读取图像
+img = cv2.imread('image.jpg')
+
+# 转换为灰度图
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+# 显示结果
+cv2.imshow('Original', img)
+cv2.imshow('Gray', gray)
+cv2.waitKey(0)
+cv2.destroyAllWindows()`,
+                            "note": "确保图像文件路径正确，且图像格式支持（jpg、png等）",
+                            "image": {
+                                "src": "https://pic4.zhimg.com/v2-a9c3e5d8d611526eb45d3c0ee4cd1087_r.jpg",
+                                "alt": "图像处理效果对比",
+                                "caption": "图3: 原始图像与灰度图对比",
+                                "placeholder": "图像处理效果加载中..."
+                            }
+                        }
+                    ]
+                }
+            ],
+            "notes": [
+                "确保Python环境正确配置",
+                "图像处理前检查图像是否成功加载",
+                "注意内存使用，处理大图像时可能需要优化"
+            ]
+        };
+
+        // 图片懒加载实现
+        class LazyImageLoader {
+            constructor() {
+                this.observer = null;
+                this.initObserver();
+            }
+
+            initObserver() {
+                if ('IntersectionObserver' in window) {
+                    this.observer = new IntersectionObserver((entries, observer) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                const img = entry.target;
+                                this.loadImage(img);
+                                observer.unobserve(img);
+                            }
+                        });
+                    }, {
+                        rootMargin: '100px 0px', // 提前100px加载
+                        threshold: 0.01
+                    });
+                }
+            }
+
+            loadImage(imgElement) {
+                const src = imgElement.dataset.src;
+                if (!src) return;
+
+                const tempImg = new Image();
+                tempImg.onload = () => {
+                    imgElement.src = src;
+                    imgElement.classList.add('loaded');
+                    // 移除占位符
+                    const placeholder = imgElement.previousElementSibling;
+                    if (placeholder && placeholder.classList.contains('image-placeholder')) {
+                        placeholder.remove();
+                    }
+                };
+                tempImg.onerror = () => {
+                    console.error('图片加载失败:', src);
+                    const errorMsg = document.createElement('div');
+                    errorMsg.className = 'image-error';
+                    errorMsg.textContent = '图片加载失败';
+                    const placeholder = imgElement.previousElementSibling;
+                    imgElement.parentNode.replaceChild(errorMsg, placeholder);
+                    // 可以在这里显示加载失败的提示
+                };
+                tempImg.src = src;
+            }
+
+            observeImage(imgElement) {
+                if (this.observer) {
+                    this.observer.observe(imgElement);
+                } else {
+                    // 不支持IntersectionObserver的直接加载
+                    this.loadImage(imgElement);
+                }
+            }
+        }
+
+        // 渲染教程内容
+        function renderTutorial(data) {
+            const container = document.getElementById('tutorialContent');
+            const lazyLoader = new LazyImageLoader();
+
+            // 渲染主标题
+            const mainTitle = document.createElement('h1');
+            mainTitle.className = 'section-title';
+            mainTitle.textContent = data.title;
+            container.appendChild(mainTitle);
+
+            // 渲染各个部分
+            data.sections.forEach(section => {
+                const sectionDiv = document.createElement('div');
+                sectionDiv.className = 'section';
+
+                const sectionTitle = document.createElement('h2');
+                sectionTitle.className = 'section-title';
+                sectionTitle.textContent = section.title;
+                sectionDiv.appendChild(sectionTitle);
+
+                // 渲染步骤
+                section.steps.forEach((step, index) => {
+                    const stepDiv = document.createElement('div');
+                    stepDiv.className = 'step';
+
+                    const stepHeader = document.createElement('div');
+                    stepHeader.className = 'step-header';
+
+                    const stepNumber = document.createElement('span');
+                    stepNumber.className = 'step-number';
+                    stepNumber.textContent = `${index + 1}`;
+                    stepHeader.appendChild(stepNumber);
+
+                    const stepTitle = document.createElement('h3');
+                    stepTitle.textContent = step.title;
+                    stepHeader.appendChild(stepTitle);
+
+                    stepDiv.appendChild(stepHeader);
+
+                    const contentDiv = document.createElement('div');
+                    contentDiv.className = 'content';
+
+                    // 添加内容
+                    const contentP = document.createElement('p');
+                    contentP.textContent = step.content;
+                    contentDiv.appendChild(contentP);
+
+                    // 添加图片
+                    if (step.image) {
+                        const imageContainer = document.createElement('div');
+                        imageContainer.className = 'image-container';
+
+                        // 添加占位符
+                        if (step.image.placeholder) {
+                            const placeholder = document.createElement('div');
+                            placeholder.className = 'image-placeholder';
+                            placeholder.textContent = step.image.placeholder;
+                            imageContainer.appendChild(placeholder);
+                        }
+
+                        const img = document.createElement('img');
+                        img.className = 'tutorial-image';
+                        img.dataset.src = step.image.src; // 使用data-src代替src
+                        img.alt = step.image.alt;
+                        imageContainer.appendChild(img);
+
+                        if (step.image.caption) {
+                            const caption = document.createElement('div');
+                            caption.className = 'image-caption';
+                            caption.textContent = step.image.caption;
+                            imageContainer.appendChild(caption);
+                        }
+
+                        contentDiv.appendChild(imageContainer);
+                        
+                        // 开始观察图片是否进入视口
+                        lazyLoader.observeImage(img);
+                    }
+
+                    // 添加代码块
+                    if (step.code) {
+                        const codeBlock = document.createElement('div');
+                        codeBlock.className = 'code-block';
+
+                        const pre = document.createElement('pre');
+                        pre.textContent = step.code;
+                        codeBlock.appendChild(pre);
+
+                        const copyButton = document.createElement('button');
+                        copyButton.className = 'copy-button';
+                        copyButton.textContent = '复制代码';
+
+                        copyButton.addEventListener('click', async () => {
+                            try {
+                                await navigator.clipboard.writeText(step.code);
+                                copyButton.textContent = '已复制!';
+                                copyButton.classList.add('copied');
+
+                                setTimeout(() => {
+                                    copyButton.textContent = '复制代码';
+                                    copyButton.classList.remove('copied');
+                                }, 2000);
+                            } catch (err) {
+                                console.error('复制失败:', err);
+                                copyButton.textContent = '复制失败';
+                            }
+                        });
+
+                        codeBlock.appendChild(copyButton);
+                        contentDiv.appendChild(codeBlock);
+                    }
+
+                    // 添加注意事项
+                    if (step.note) {
+                        const noteDiv = document.createElement('div');
+                        noteDiv.className = 'note';
+                        noteDiv.textContent = step.note;
+                        contentDiv.appendChild(noteDiv);
+                    }
+
+                    stepDiv.appendChild(contentDiv);
+                    sectionDiv.appendChild(stepDiv);
+                });
+
+                container.appendChild(sectionDiv);
+            });
+
+            // 渲染注意事项
+            if (data.notes && data.notes.length > 0) {
+                const notesSection = document.createElement('div');
+                notesSection.className = 'section';
+
+                const notesTitle = document.createElement('h2');
+                notesTitle.className = 'section-title';
+                notesTitle.textContent = '注意事项';
+                notesSection.appendChild(notesTitle);
+
+                const notesContent = document.createElement('div');
+                notesContent.className = 'content';
+
+                data.notes.forEach(note => {
+                    const noteItem = document.createElement('div');
+                    noteItem.className = 'list-item';
+                    noteItem.textContent = note;
+                    notesContent.appendChild(noteItem);
+                });
+
+                notesSection.appendChild(notesContent);
+                container.appendChild(notesSection);
+            }
+        }
+
+        // 初始化渲染
+        document.addEventListener('DOMContentLoaded', () => {
+            renderTutorial(tutorialData);
+        });
+    </script>
+</body>
+</html>

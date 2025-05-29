@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<button id="downloadBtn">下载文件</button>
+
+<body>
+    <script>
+        // document.getElementById('downloadBtn').addEventListener('click', function () {
+        //     window.URL.createObjectURL("http://172.16.0.253:8088/earthview/manager/config/exportAll?token=f584b6bdee30490&roleKey=ROLE_ADMIN");
+        // })
+
+        fetch("http://localhost:8114/lsv/exportFireStatisticsByCondition2", {
+            method: 'GET', // 或者 'POST'
+            // add other options if needed, like headers
+        })
+            .then(response => {
+                // 检查响应是否正常
+                if (!response.ok) {
+                    throw new Error('网络响应不正常');
+                }
+
+                // 获取 Content-Disposition 头信息
+                console.log(response.headers)
+                const contentDisposition = response.headers.get('Content-Disposition');
+                console.log('Content-Disposition:', contentDisposition);
+                console.log(response)
+                console.log(response.headers)
+
+                // 处理文件下载或其他操作
+                return response.blob(); // 获取文件内容
+            })
+            .then(blob => {
+                // 创建 URL 并下载文件等操作
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = 'filename.ext'; // 默认文件名
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+            })
+            .catch(error => {
+                console.error('请求失败:', error);
+            });
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', "http://localhost:8114/lsv/exportFireStatisticsByCondition2", true); // 或者 'POST'
+
+        // 设置响应类型
+        xhr.responseType = 'blob'; // 如果期望接收 Blob 对象
+
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                // 获取 Content-Disposition 头信息
+                console.log(xhr)
+                const contentDisposition = xhr.getResponseHeader('mine-content');
+                console.log('Content-Disposition:', contentDisposition);
+
+                // 处理文件下载
+                const blob = new Blob([xhr.response]);
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = 'filename.ext'; // 默认文件名
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+            } else {
+                console.error('请求失败:', xhr.statusText);
+            }
+        };
+
+        xhr.send();
+
+    </script>
+</body>
+
+</html>

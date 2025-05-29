@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'release.md'
+      - '!sub-project/docs/**'
 
 jobs:
   build:

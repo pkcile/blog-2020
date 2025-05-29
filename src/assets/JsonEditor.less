@@ -1,0 +1,236 @@
+.json-editor {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px 20px;
+  background: #f8f9fa;
+  min-height: 100vh;
+
+  h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #2c3e50;
+    font-size: 2.5em;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 15px;
+
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, #3498db, #2ecc71);
+      border-radius: 2px;
+    }
+  }
+
+  .editor-section {
+    background: #fff;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+
+    &:hover {
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    h2 {
+      margin-top: 0;
+      color: #2c3e50;
+      border-bottom: 2px solid #edf2f7;
+      padding-bottom: 15px;
+      font-size: 1.5em;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      &:before {
+        content: '';
+        width: 4px;
+        height: 20px;
+        background: #3498db;
+        border-radius: 2px;
+      }
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 2px solid #edf2f7;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: all 0.2s ease;
+
+      &:focus {
+        outline: none;
+        border-color: #3498db;
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+      }
+
+      &::placeholder {
+        color: #a0aec0;
+      }
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 2px solid #edf2f7;
+      border-radius: 8px;
+      font-family: 'Fira Code', monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      resize: vertical;
+      transition: all 0.2s ease;
+
+      &:focus {
+        outline: none;
+        border-color: #3498db;
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+      }
+
+      &::placeholder {
+        color: #a0aec0;
+      }
+    }
+  }
+
+  .section {
+    background: #f8fafc;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 25px;
+    border: 1px solid #edf2f7;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: #fff;
+      border-color: #cbd5e0;
+    }
+
+    h3 {
+      margin-top: 0;
+      color: #2d3748;
+      font-size: 1.2em;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      &:before {
+        content: '';
+        width: 3px;
+        height: 16px;
+        background: #2ecc71;
+        border-radius: 2px;
+      }
+    }
+  }
+
+  .step {
+    background: #fff;
+    border: 1px solid #edf2f7;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: all 0.2s ease;
+
+    &:hover {
+      border-color: #cbd5e0;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    textarea {
+      min-height: 100px;
+      background: #f8fafc;
+    }
+  }
+
+  button {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 5px 0;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 6px rgba(52, 152, 219, 0.2);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    &:before {
+      content: '+';
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+
+  .save-button {
+    display: block;
+    width: 220px;
+    margin: 40px auto;
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    font-size: 16px;
+    padding: 14px 28px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(46, 204, 113, 0.2);
+
+    &:hover {
+      background: linear-gradient(135deg, #27ae60, #219a52);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 8px rgba(46, 204, 113, 0.3);
+    }
+
+    &:before {
+      content: '💾';
+      font-size: 18px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 15px;
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 30px;
+    }
+
+    .editor-section {
+      padding: 20px;
+    }
+
+    .section {
+      padding: 15px;
+    }
+
+    .step {
+      padding: 15px;
+    }
+
+    button {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+} 
