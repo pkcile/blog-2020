@@ -30,9 +30,7 @@ const App = () => {
     console.log(currentPath)
     let currentPathArray = currentPath.split("?")
     let currentPath2 = currentPathArray[0]
-    console.log(currentPathArray)
     let param = currentPathArray.length > 1 ? currentPathArray[1] : ""
-    console.log(param)
 
     switch (currentPath2) {
       case '':

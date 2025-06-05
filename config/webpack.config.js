@@ -17,7 +17,15 @@ const path = require('path');
 const paths = require('./paths');
 const createEnvironmentHash = require('./webpack/createEnvironmentHash');
 const getHasMultipleCores = require('./webpack/getHasMultipleCores');
-
+const cdn = {
+  js: [
+    'https://cdn.jsdelivr.net/npm/preact@10.0.0/dist/preact.min.js',
+    'https://cdn.jsdelivr.net/npm/preact@10.0.0/hooks/dist/hooks.umd.js',
+  ],
+  css: [
+    // 'https://example.com/some-styles.css' (optional)
+  ],
+};
 module.exports = (webpackEnv, envConfig) => {
   const isEnvProduction = webpackEnv === 'production';
   const isEnvDevelopment = webpackEnv === 'development';
@@ -376,6 +384,7 @@ module.exports = (webpackEnv, envConfig) => {
         inject: true,
         // scriptLoading: 'defer',
         template: paths.appHtml,
+        // cdn: cdn,
         templateParameters: {
           title: "王朋坤的主页",
           PUBLIC_URL:  "." //paths.publicUrlOrPath.envPublicUrl
@@ -483,6 +492,11 @@ module.exports = (webpackEnv, envConfig) => {
       extensions: ['.js'],
       modules: ['node_modules', paths.appNodeModules],
     },
+    // externals: {
+    //   // Prevent bundling of these imports
+    //   'preact': 'preact',
+    //   'preact/hooks': 'preactHooks'
+    // },
     stats: 'errors-only',
     target: ['web', 'es3'],
   };
