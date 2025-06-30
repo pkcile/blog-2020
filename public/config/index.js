@@ -103,7 +103,7 @@ var RecentDatalist = [
     titleShort: "关停无用网站",
     remind: "",
     jumptIf: false,
-    jumptUrl: "/back/2024-12-02-update2022/hexo入门文章_工作日志.mhtml",
+    jumptUrl: "",
     content: "为便于维护，减少对seo的污染；不公开该网站，自己用",
     jumptInfor: "下载备份博客内容页面（mhtml）",
     createDate: "2024-12-02",

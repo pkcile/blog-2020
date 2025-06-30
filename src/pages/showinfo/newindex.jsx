@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import backurl from "./back.png";
 import ConfirmDialog from "../forsure/index.jsx";
 let ClientInfo = function ({ setMapstatus, itemList }) {
-  itemList.jumptUrl = window.location.href + itemList.jumptUrl;
   const [message, setMessage] = useState("");
   let [messageUrl, setMessageUrl] = useState("");
   const [isDialogOpen, setDialogOpen] = useState(false);
@@ -14,6 +13,7 @@ let ClientInfo = function ({ setMapstatus, itemList }) {
     setDialogOpen(false);
     window.open(messageUrl);
   };
+  console.log(itemList)
   return (
     <ul class={`main thirdpage`}>
       <ConfirmDialog

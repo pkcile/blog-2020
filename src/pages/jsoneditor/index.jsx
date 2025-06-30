@@ -232,7 +232,7 @@ const JsonEditor = () => {
         }}
       >
         <div style={styles.menuTitle}>目录结构</div>
-        
+
         {jsonData.title && (
           <div style={styles.menuSection}>
             <div style={styles.menuSectionTitle}>主标题</div>
@@ -303,7 +303,7 @@ const JsonEditor = () => {
       <div style={{
         ...styles.mainContent,
         marginLeft: windowWidth <= 768 ? 0 : '320px'
-      }}>
+      }}> 
         <h1 style={styles.title}>文章编辑器</h1>
         
         <div style={styles.editorSection}>

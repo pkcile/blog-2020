@@ -286,9 +286,9 @@ export default function IndexPage() {
         } else {
           return (
             <li
-              onClick={() => {
-                window.location.href = item.jumptUrl;
-              }}
+              // onClick={() => {
+              //   window.location.href = item.jumptUrl;
+              // }}
             >
               <div>{item.title}</div>
             </li>
