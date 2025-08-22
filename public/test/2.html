@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 模拟 3 个文本文件
+        const files = [
+            new File(['文件1的内容'], 'document1.txt', { type: 'text/plain' }),
+            new File(['文件2的内容'], 'document2.txt', { type: 'text/plain' }),
+            new File(['文件3的内容'], 'document3.txt', { type: 'text/plain' })
+        ];
+
+        // 添加到 FormData
+        const formData = new FormData();
+        files.forEach(file => {
+            formData.append('file', file);
+        });
+
+        // 可以查看模拟的文件
+        console.log(files);
+
+                // 使用 fetch 发送请求
+        fetch('http://localhost:8114/general/uploadDatamanagerInputData', {
+        method: 'POST',
+        body: formData
+        // 注意：不要手动设置 Content-Type，浏览器会自动设置正确的 multipart/form-data 和 boundary
+        })
+        .then(response => {
+        if (!response.ok) {
+            throw new Error('上传失败');
+        }
+        return response.json();
+        })
+        .then(data => {
+        console.log('上传成功:', data);
+        })
+        .catch(error => {
+        console.error('上传错误:', error);
+        });
+
+
+    </script>
+</body>
+
+</html>

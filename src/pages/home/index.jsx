@@ -356,8 +356,9 @@ export default function IndexPage() {
       <ul class="footer">
         <li class="ICP">
           <a
-            // href="https://beian.miit.gov.cn/"
-            onClick={handleNavigation}
+            href="https://beian.miit.gov.cn/"
+            target="_blank"
+            // onClick={handleNavigation}
           >
             <>
               <span class="ICP-title">备案号：</span>
@@ -367,7 +368,7 @@ export default function IndexPage() {
         </li>
         <li
           onClick={() => {
-            setFootDirect(!footDirect);
+            // setFootDirect(!footDirect);
           }}
         >
           ...
