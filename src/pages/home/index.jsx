@@ -368,7 +368,7 @@ export default function IndexPage() {
         </li>
         <li
           onClick={() => {
-            // setFootDirect(!footDirect);
+            setFootDirect(!footDirect);
           }}
         >
           ...
