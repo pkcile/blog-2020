@@ -3,7 +3,7 @@ name: Upload to COS
 on:
   push:
     paths:
-      - 'release.md'
+      # - 'release.md'
       - '!sub-project/docs/**'
 
 jobs:
