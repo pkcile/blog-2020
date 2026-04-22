@@ -1,3 +1,4 @@
+本仓库自2026年04月22日不再进行内容和功能更新。该仓库改为归档模式。
 [![Upload to COS](https://github.com/pkcile/blog-2020/actions/workflows/tencent-cos.yml/badge.svg)](https://github.com/pkcile/blog-2020/actions/workflows/tencent-cos.yml)
 
 Node版本兼容性,v15.4.0(2020-12-09)、v16.20.2、v18.20.4、v20.14.0、v22.14.0(改版本不好用移除了zlib包能正常使用，云环境下却正常)：
