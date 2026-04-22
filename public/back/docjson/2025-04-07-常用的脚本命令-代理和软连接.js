@@ -10,7 +10,7 @@ callbackFunction({
           "code": "git中设置http代理\ngit中设置https代理\ngit中取消http代理\ngit中取消https代理\n\ngit config --global http.proxy \"http://192.168.1.105:7890\"\ngit config --global https.proxy \"http://192.168.1.105:7890\"\ngit config --global --unset http.proxy\ngit config --global --unset https.proxy\n\n",
           "note": "设置完后，就可以正常使用git clone了",
           "image": {
-            "src": "https://www.pkcile.cn/img/software/git_1.png",
+            "src": "./img/software/git_1.png",
             "alt": "git图标",
             "caption": "图1: git截图",
             "placeholder": "git图加载中..."
@@ -39,7 +39,7 @@ callbackFunction({
           "code": "mklink /D \"D:\\app\\aaa\" \"Z:\"\n\n为D:\\app\\bbb <<====>> Z: 创建的符号链接",
           "note": "注意：创建软链接时，并没有aaa文件夹",
           "image": {
-            "src": "https://www.pkcile.cn/img/software/5.png",
+            "src": "./img/software/5.png",
             "alt": "大象图",
             "caption": "图3: 大象图",
             "placeholder": "大象图加载中..."

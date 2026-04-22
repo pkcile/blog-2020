@@ -1,4 +1,12 @@
 var ArchiveDatalist = [
+    {
+      title: "外网仓库离线停更",
+      remind: "",
+      jumptIf: true,
+      jumptUrl: "./back/docjson/docstyle1.html?path=./2026-04-22-外网仓库离线停更.js",
+      content: "",
+      createDate: "2026-04-22",
+    }, 
     // {
     //   title: "Java学习-01-面向对象概念与多线程相关",
     //   remind: "",
@@ -11,7 +19,7 @@ var ArchiveDatalist = [
       title: "常用的脚本命令（代理和软连接）",
       remind: "",
       jumptIf: true,
-      jumptUrl: "./back/docjson/docstyle1.html?path=./2025-04-07-常用的脚本命令-代理和软连接.js",
+      jumptUrl: "c",
       content: "",
       createDate: "2025-04-07",
     }, 

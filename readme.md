@@ -1,4 +1,18 @@
 ## 本仓库自2026年04月22日不再进行内容和功能更新；该仓库改为归档模式。
+在线下载依赖，启动该前端
+```
+前提：
+node >= v14.21.3
+npm 6.14.18
+
+下载：
+npm install
+如果下载存在问题则尝试清除缓存（npm cache clean --force ）
+
+运行：
+npm run start
+```
+
 
 [![Upload to COS](https://github.com/pkcile/blog-2020/actions/workflows/tencent-cos.yml/badge.svg)](https://github.com/pkcile/blog-2020/actions/workflows/tencent-cos.yml)
 

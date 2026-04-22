@@ -386,7 +386,7 @@ module.exports = (webpackEnv, envConfig) => {
         template: paths.appHtml,
         // cdn: cdn,
         templateParameters: {
-          title: "王朋坤的主页",
+          title: "慢慢找平衡的主页",
           PUBLIC_URL:  "." //paths.publicUrlOrPath.envPublicUrl
         },
         ...(isEnvProduction
